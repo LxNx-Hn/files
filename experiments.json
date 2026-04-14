@@ -1,0 +1,76 @@
+{
+  "_comment": [
+    "TMDb 포스터+줄거리 멀티모달 실험 설정",
+    "3 GPU 동시 사용을 기본값으로 두고, GPU당 1개 실험만 실행해 가장 단순하게 병렬화",
+    "CNN L4 + Transformer 고정, early/joint/late와 unimodal baseline만 비교"
+  ],
+
+  "gpus": [0],
+  "max_per_gpu": 1,
+  "results_dir": "./results",
+
+  "common_args": {
+    "data_dir": "./data",
+    "n_classes": 15,
+    "epochs": 20,
+    "batch_size": 32,
+    "lr": 0.001,
+    "img_lr": 0.0001,
+    "txt_lr": 0.00002,
+    "fusion_lr": 0.001,
+    "weight_decay": 0.0001,
+    "warmup_epochs": 3,
+    "feat_dim": 256,
+    "dropout": 0.3,
+    "freeze_bert": true,
+    "save_models": false
+  },
+
+  "experiments": [
+    {
+      "id": 0,
+      "name": "image_only+L4",
+      "img_encoder": "cnn",
+      "txt_encoder": "transformer",
+      "fusion": "image_only",
+      "cnn_layers": 4,
+      "estimated_minutes": 15
+    },
+    {
+      "id": 1,
+      "name": "text_only+L4",
+      "img_encoder": "cnn",
+      "txt_encoder": "transformer",
+      "fusion": "text_only",
+      "cnn_layers": 4,
+      "estimated_minutes": 20
+    },
+    {
+      "id": 2,
+      "name": "cnn+transformer+early+L4",
+      "img_encoder": "cnn",
+      "txt_encoder": "transformer",
+      "fusion": "early",
+      "cnn_layers": 4,
+      "estimated_minutes": 25
+    },
+    {
+      "id": 3,
+      "name": "cnn+transformer+late+L4",
+      "img_encoder": "cnn",
+      "txt_encoder": "transformer",
+      "fusion": "late",
+      "cnn_layers": 4,
+      "estimated_minutes": 25
+    },
+    {
+      "id": 4,
+      "name": "cnn+transformer+joint+L4",
+      "img_encoder": "cnn",
+      "txt_encoder": "transformer",
+      "fusion": "cross_attention",
+      "cnn_layers": 4,
+      "estimated_minutes": 27
+    }
+  ]
+}

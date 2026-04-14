@@ -1,0 +1,13 @@
+.DS_Store
+.venv/
+__pycache__/
+*.pyc
+
+data/
+results/
+results_old_*/
+
+*.zip
+
+*.pt
+*.pth
