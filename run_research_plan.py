@@ -5,8 +5,8 @@ run_research_plan.py
 다음 실험 계획을 단계별로 자동 실행한다.
 
 기본 단계:
-1. single10_final_balanced_full : 10개 장르, 단일장르 + 균형 샘플링,
-   CNN/RES 3퓨전 + image_only/text_only baseline
+1. single10_final_phase1_cnn : CNN 3퓨전 + CNN image_only + text_only
+2. single10_final_phase2_res : RES 3퓨전 + RES image_only
 """
 
 import argparse
@@ -14,8 +14,8 @@ import subprocess
 from pathlib import Path
 
 
-DEFAULT_STAGES = ["single10_final_balanced_full"]
-ALL_STAGES = ["single10_final_balanced_full"]
+DEFAULT_STAGES = ["single10_final_phase1_cnn", "single10_final_phase2_res"]
+ALL_STAGES = ["single10_final_phase1_cnn", "single10_final_phase2_res"]
 
 
 def parse_args():
@@ -45,7 +45,7 @@ def build_stage_commands(args, stage):
     if args.gpus:
         gpu_args = ["--gpus", *map(str, args.gpus)]
 
-    if stage == "single10_final_balanced_full":
+    if stage == "single10_final_phase1_cnn":
         out_dir = variants_root / "single10_balanced"
         return [
             [
@@ -61,13 +61,33 @@ def build_stage_commands(args, stage):
             ],
             [
                 py, "launcher.py",
-                "--config", "experiments_single10_final_balanced_full.json",
+                "--config", "experiments_single10_final_phase1_cnn.json",
                 *gpu_args,
                 "--dry_run",
             ],
             [
                 py, "launcher.py",
-                "--config", "experiments_single10_final_balanced_full.json",
+                "--config", "experiments_single10_final_phase1_cnn.json",
+                *gpu_args,
+            ],
+        ]
+
+    if stage == "single10_final_phase2_res":
+        out_dir = variants_root / "single10_balanced"
+        return [
+            [
+                py, "preprocess.py", str(out_dir),
+                "--max_text_len", "96",
+            ],
+            [
+                py, "launcher.py",
+                "--config", "experiments_single10_final_phase2_res.json",
+                *gpu_args,
+                "--dry_run",
+            ],
+            [
+                py, "launcher.py",
+                "--config", "experiments_single10_final_phase2_res.json",
                 *gpu_args,
             ],
         ]

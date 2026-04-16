@@ -1,14 +1,14 @@
 #!/bin/bash
 # ============================================================
-#  run_all.sh  —  single10_final_balanced_full 실행 스크립트
-#  data -> single10 -> single10_balanced -> final 9 runs
+#  run_all.sh  —  최종 2단계 실행 스크립트
+#  data -> single10 -> single10_balanced -> phase1(CNN) -> phase2(RES)
 # ============================================================
 
 set -euo pipefail
 
 DATA_DIR="${DATA_DIR:-./data}"
 VARIANTS_ROOT="${VARIANTS_ROOT:-./data_variants}"
-RESULTS_DIR="${RESULTS_DIR:-./results_single10_final_balanced_full}"
+RESULTS_DIR="${RESULTS_DIR:-./results_single10_final}"
 PYTHON="${PYTHON:-python3}"
 
 TMDB_API_KEY="${TMDB_API_KEY:-7335b880e3c8007b7beaa2e78dbd2a6c}"
@@ -26,7 +26,7 @@ print_header() {
   echo ""
   echo "╔══════════════════════════════════════════════════════════╗"
   echo "║   TMDb 멀티모달 최종 실험                              ║"
-  echo "║   single10 -> balanced -> final 9 runs                ║"
+  echo "║   single10 -> balanced -> phase1(CNN) -> phase2(RES) ║"
   echo "╚══════════════════════════════════════════════════════════╝"
   echo "  DATA_DIR        : ${DATA_DIR}"
   echo "  VARIANTS_ROOT   : ${VARIANTS_ROOT}"
@@ -95,7 +95,13 @@ prepare_variants() {
 run_experiments() {
   echo "[4/5] launcher.py 실행..."
   ${PYTHON} launcher.py \
-    --config experiments_single10_final_balanced_full.json \
+    --config experiments_single10_final_phase1_cnn.json \
+    --max_per_gpu "${MAX_PER_GPU}" \
+    --gpus ${GPU_IDS} \
+    --python "${PYTHON}" \
+    2>&1 | tee -a "${LOG_FILE}"
+  ${PYTHON} launcher.py \
+    --config experiments_single10_final_phase2_res.json \
     --max_per_gpu "${MAX_PER_GPU}" \
     --gpus ${GPU_IDS} \
     --python "${PYTHON}" \
@@ -105,7 +111,8 @@ run_experiments() {
 
 print_summary() {
   echo "[5/5] 결과 확인"
-  echo "  report : ${RESULTS_DIR}/summary_report.txt"
+  echo "  phase1 : ./results_single10_final_phase1_cnn/summary_report.txt"
+  echo "  phase2 : ./results_single10_final_phase2_res/summary_report.txt"
   echo "  logs   : ${LOG_FILE}"
   echo ""
 }

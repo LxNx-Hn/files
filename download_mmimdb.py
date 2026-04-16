@@ -22,6 +22,7 @@ log = logging.getLogger(__name__)
 
 API_BASE = "https://api.themoviedb.org/3"
 IMAGE_BASE = "https://image.tmdb.org/t/p/w500"
+MAX_DISCOVER_PAGE = 500
 DEFAULT_TMDB_API_KEY = "7335b880e3c8007b7beaa2e78dbd2a6c"
 ALL_TARGET_GENRES = [
     "Action",
@@ -192,7 +193,7 @@ def discover_movies_for_genre(client: TMDbClient, genre_id: int, per_genre: int,
     collected = []
     page = 1
 
-    while len(collected) < per_genre:
+    while len(collected) < per_genre and page <= MAX_DISCOVER_PAGE:
         payload = client.get(
             "/discover/movie",
             with_genres=genre_id,
@@ -220,10 +221,16 @@ def discover_movies_for_genre(client: TMDbClient, genre_id: int, per_genre: int,
             seen_ids.add(movie_id)
             collected.append(movie)
 
-        total_pages = payload.get("total_pages", page)
+        total_pages = min(payload.get("total_pages", page), MAX_DISCOVER_PAGE)
         if page >= total_pages:
             break
         page += 1
+
+    if len(collected) < per_genre and page > MAX_DISCOVER_PAGE:
+        log.warning(
+            f"genre_id={genre_id} 는 discover page limit({MAX_DISCOVER_PAGE})에 도달해 "
+            f"목표 {per_genre}편 중 {len(collected)}편만 수집했습니다."
+        )
 
     return collected
 

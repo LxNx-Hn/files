@@ -1,14 +1,14 @@
 {
   "_comment": [
-    "최종 메인 런",
+    "최종 2차 런",
     "10개 장르 단일장르 + 균형 샘플링",
-    "CNN / RES 각각 early/late/joint 3퓨전 + image_only/text_only 비교",
+    "RES early/late/joint + RES image_only",
     "2 GPU 기준"
   ],
 
   "gpus": [0, 1],
   "max_per_gpu": 1,
-  "results_dir": "./results_single10_final_balanced_full",
+  "results_dir": "./results_single10_final_phase2_res",
 
   "common_args": {
     "data_dir": "./data_variants/single10_balanced",
@@ -30,36 +30,6 @@
   "experiments": [
     {
       "id": 0,
-      "name": "CNN+transformer+early+freeze_off",
-      "img_encoder": "cnn",
-      "txt_encoder": "transformer",
-      "fusion": "early",
-      "cnn_layers": 4,
-      "freeze_bert": false,
-      "estimated_minutes": 18
-    },
-    {
-      "id": 1,
-      "name": "CNN+transformer+late+freeze_off",
-      "img_encoder": "cnn",
-      "txt_encoder": "transformer",
-      "fusion": "late",
-      "cnn_layers": 4,
-      "freeze_bert": false,
-      "estimated_minutes": 18
-    },
-    {
-      "id": 2,
-      "name": "CNN+transformer+joint+freeze_off",
-      "img_encoder": "cnn",
-      "txt_encoder": "transformer",
-      "fusion": "cross_attention",
-      "cnn_layers": 4,
-      "freeze_bert": false,
-      "estimated_minutes": 20
-    },
-    {
-      "id": 3,
       "name": "RES+transformer+early+freeze_off",
       "img_encoder": "res",
       "txt_encoder": "transformer",
@@ -69,7 +39,7 @@
       "estimated_minutes": 15
     },
     {
-      "id": 4,
+      "id": 1,
       "name": "RES+transformer+late+freeze_off",
       "img_encoder": "res",
       "txt_encoder": "transformer",
@@ -79,7 +49,7 @@
       "estimated_minutes": 15
     },
     {
-      "id": 5,
+      "id": 2,
       "name": "RES+transformer+joint+freeze_off",
       "img_encoder": "res",
       "txt_encoder": "transformer",
@@ -89,17 +59,7 @@
       "estimated_minutes": 17
     },
     {
-      "id": 6,
-      "name": "CNN+transformer+image_only",
-      "img_encoder": "cnn",
-      "txt_encoder": "transformer",
-      "fusion": "image_only",
-      "cnn_layers": 4,
-      "freeze_bert": true,
-      "estimated_minutes": 9
-    },
-    {
-      "id": 7,
+      "id": 3,
       "name": "RES+transformer+image_only",
       "img_encoder": "res",
       "txt_encoder": "transformer",
@@ -107,16 +67,6 @@
       "cnn_layers": 4,
       "freeze_bert": true,
       "estimated_minutes": 9
-    },
-    {
-      "id": 8,
-      "name": "transformer+text_only+freeze_off",
-      "img_encoder": "cnn",
-      "txt_encoder": "transformer",
-      "fusion": "text_only",
-      "cnn_layers": 4,
-      "freeze_bert": false,
-      "estimated_minutes": 11
     }
   ]
 }

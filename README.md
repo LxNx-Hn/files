@@ -1,36 +1,43 @@
 # TMDb 멀티모달 영화 장르 분류
 
-영화 포스터 이미지와 줄거리 요약 텍스트를 함께 사용해 10개 장르를 분류하는 실험 코드입니다. 현재 메인 실험은 `single10 -> single10_balanced`를 만든 뒤, `CNN / RES` 각각에 대해 `early / late / joint` 3개 퓨전과 `image_only / text_only` baseline을 함께 비교하는 최종 런 기준입니다.
+영화 포스터 이미지와 줄거리 요약 텍스트를 함께 사용해 10개 장르를 분류하는 실험 코드입니다. 현재 메인 실험은 `single10 -> single10_balanced`를 만든 뒤, 두 단계로 나눠 실행합니다.
+
+- 1차: `CNN + early / late / joint + image_only + text_only`
+- 2차: `RES + early / late / joint + image_only`
 
 ## 현재 메인 실험
 
 - 원본 데이터: `./data`
 - 단일장르 variant: `./data_variants/single10`
 - 균형 variant: `./data_variants/single10_balanced`
-- 최종 설정 파일: `experiments_single10_final_balanced_full.json`
-- 결과 폴더: `results_single10_final_balanced_full`
+- 1차 설정 파일: `experiments_single10_final_phase1_cnn.json`
+- 2차 설정 파일: `experiments_single10_final_phase2_res.json`
+- 결과 폴더:
+  - `results_single10_final_phase1_cnn`
+  - `results_single10_final_phase2_res`
 
-총 실험 수는 `9런`입니다.
+총 실험 수는 `9런`이고, 두 단계로 분리됩니다.
 
-- `CNN + early / late / joint`
-- `RES + early / late / joint`
-- `CNN + image_only`
-- `RES + image_only`
-- `transformer + text_only`
+- 1차 `5런`
+- 2차 `4런`
 
 ## 실행
 
 ```bash
 pip install -r requirements.txt
 export TMDB_API_KEY=<your_key>
-python3 download_mmimdb.py --data_dir ./data --api_key $TMDB_API_KEY
-python3 prepare_dataset_variant.py --source_dir ./data --out_dir ./data_variants/single10 --single_genre_only --force
-python3 prepare_dataset_variant.py --source_dir ./data_variants/single10 --out_dir ./data_variants/single10_balanced --balance_to_min --force
-python3 preprocess.py ./data_variants/single10_balanced --max_text_len 96
-python3 launcher.py --config experiments_single10_final_balanced_full.json
+python3 download_mmimdb.py --data_dir ./data --api_key $TMDB_API_KEY --per_genre_overrides_file ./collection_targets_single10_boosted.json && \
+python3 prepare_dataset_variant.py --source_dir ./data --out_dir ./data_variants/single10 --single_genre_only --force && \
+python3 prepare_dataset_variant.py --source_dir ./data_variants/single10 --out_dir ./data_variants/single10_balanced --balance_to_min --force && \
+python3 preprocess.py ./data_variants/single10_balanced --max_text_len 96 && \
+python3 launcher.py --config experiments_single10_final_phase1_cnn.json && \
+python3 launcher.py --config experiments_single10_final_phase2_res.json
 ```
 
-결과는 `results_single10_final_balanced_full/summary_report.txt`에 저장됩니다.
+결과는 아래 두 파일에 각각 저장됩니다.
+
+- `results_single10_final_phase1_cnn/summary_report.txt`
+- `results_single10_final_phase2_res/summary_report.txt`
 
 ## 기본 설정
 
@@ -50,7 +57,8 @@ python3 launcher.py --config experiments_single10_final_balanced_full.json
 
 ```text
 ├── launcher.py
-├── experiments_single10_final_balanced_full.json
+├── experiments_single10_final_phase1_cnn.json
+├── experiments_single10_final_phase2_res.json
 ├── multimodal_experiment.py
 ├── preprocess.py
 ├── download_mmimdb.py
@@ -62,9 +70,13 @@ python3 launcher.py --config experiments_single10_final_balanced_full.json
 ## 빠른 확인
 
 ```bash
-python3 launcher.py --config experiments_single10_final_balanced_full.json --dry_run
-python3 launcher.py --config experiments_single10_final_balanced_full.json --aggregate_only
+python3 launcher.py --config experiments_single10_final_phase1_cnn.json --dry_run
+python3 launcher.py --config experiments_single10_final_phase2_res.json --dry_run
 ```
+
+## 발표 자료 가이드
+
+- CNN 기준 퓨전별 도식화 가이드: `PPT_CNN_FUSION_DIAGRAM_GUIDE.md`
 
 ## 기본 10개 장르
 
