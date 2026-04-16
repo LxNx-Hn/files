@@ -79,15 +79,25 @@ def print_plan(gpu_queues: dict, gpu_load: dict) -> None:
 # ─── 명령어 구성 ──────────────────────────────────────────────────
 def build_cmd(python: str, exp: dict, common_args: dict,
               exp_results_dir: str) -> list:
+    reserved = {
+        "id", "name", "img_encoder", "txt_encoder", "fusion",
+        "cnn_layers", "estimated_minutes",
+    }
+    merged_args = dict(common_args)
+    for k, v in exp.items():
+        if k not in reserved:
+            merged_args[k] = v
+
     cmd = [
         python, "multimodal_experiment.py",
+        "--run_name",     exp["name"],
         "--img_encoders", exp["img_encoder"],
         "--txt_encoders", exp["txt_encoder"],
         "--fusions",      exp["fusion"],
         "--cnn_layers",   str(exp["cnn_layers"]),
         "--results_dir",  exp_results_dir,
     ]
-    for k, v in common_args.items():
+    for k, v in merged_args.items():
         if k == "results_dir":
             continue
         flag = f"--{k}"
@@ -188,6 +198,8 @@ def aggregate(run_dirs: list, final_dir: str) -> None:
             "f1_weighted":     best["f1_weighted"],
             "relaxed_top2_accuracy": best.get("relaxed_top2_accuracy", 0.0),
             "relaxed_top3_accuracy": best.get("relaxed_top3_accuracy", 0.0),
+            "relaxed_f1_top2": best.get("relaxed_f1_top2", 0.0),
+            "relaxed_f1_top3": best.get("relaxed_f1_top3", 0.0),
         },
         "all_results": all_results,
     }
@@ -208,9 +220,11 @@ def aggregate(run_dirs: list, final_dir: str) -> None:
         f.write(f"  Accuracy    : {best['accuracy']:.4f}\n")
         f.write(f"  Relaxed@2   : {best.get('relaxed_top2_accuracy', 0.0):.4f}\n")
         f.write(f"  Relaxed@3   : {best.get('relaxed_top3_accuracy', 0.0):.4f}\n")
+        f.write(f"  F1@2        : {best.get('relaxed_f1_top2', 0.0):.4f}\n")
+        f.write(f"  F1@3        : {best.get('relaxed_f1_top3', 0.0):.4f}\n")
         f.write(f"  F1 Macro    : {best['f1_macro']:.4f}\n\n")
         hdr = (f"  {'Rank':<4} {'Config':48} "
-               f"{'Acc':>6} {'F1_mac':>7} {'F1_wgt':>7} {'Rlx@2':>7} {'Rlx@3':>7} {'Time(m)':>8}")
+               f"{'Acc':>6} {'F1_mac':>7} {'F1_wgt':>7} {'Rlx@2':>7} {'Rlx@3':>7} {'F1@2':>7} {'F1@3':>7} {'Time(m)':>8}")
         f.write(hdr + "\n")
         f.write("  " + "-" * (len(hdr) - 2) + "\n")
         for i, r in enumerate(all_results, 1):
@@ -219,7 +233,8 @@ def aggregate(run_dirs: list, final_dir: str) -> None:
                 f"  {i:<4} {r['config_name']:48} "
                 f"{r['accuracy']:>6.4f} {r['f1_macro']:>7.4f} "
                 f"{r['f1_weighted']:>7.4f} {r.get('relaxed_top2_accuracy', 0.0):>7.4f} "
-                f"{r.get('relaxed_top3_accuracy', 0.0):>7.4f} {mins:>8.1f}\n"
+                f"{r.get('relaxed_top3_accuracy', 0.0):>7.4f} {r.get('relaxed_f1_top2', 0.0):>7.4f} "
+                f"{r.get('relaxed_f1_top3', 0.0):>7.4f} {mins:>8.1f}\n"
             )
     print(f"  Summary Report : {out_txt}")
     _plot_comparison(all_results, final_dir)

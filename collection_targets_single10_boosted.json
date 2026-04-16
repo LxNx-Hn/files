@@ -1,0 +1,12 @@
+{
+  "Action": 3500,
+  "Animation": 5000,
+  "Comedy": 3000,
+  "Crime": 2000,
+  "Documentary": 1500,
+  "Family": 3500,
+  "Horror": 2000,
+  "Music": 3000,
+  "Romance": 2000,
+  "Science Fiction": 3500
+}

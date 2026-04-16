@@ -61,13 +61,20 @@ class MultimodalDataset(Dataset):
     """
 
     def __init__(self, data_dir: str, split: str = "train",
-                 tokenizer_name: str = TOKENIZER_NAME):
+                 tokenizer_name: str = TOKENIZER_NAME,
+                 max_text_len: int = MAX_TEXT_LEN):
         super().__init__()
         self.data_dir = data_dir
         self.split = split
         self.transform = IMAGE_TRANSFORM_TRAIN if split == "train" else IMAGE_TRANSFORM_EVAL
+        self.max_text_len = max_text_len
 
         ann_path = os.path.join(data_dir, "annotations.json")
+        if not os.path.exists(ann_path):
+            raise FileNotFoundError(
+                f"annotations.json 이 없습니다: {ann_path}\n"
+                "먼저 download_mmimdb.py 를 성공적으로 완료하세요."
+            )
         with open(ann_path, "r", encoding="utf-8") as f:
             self.samples = json.load(f)
 
@@ -90,7 +97,7 @@ class MultimodalDataset(Dataset):
         # 텍스트 토크나이즈
         enc = self.tokenizer(
             item["text"],
-            max_length=MAX_TEXT_LEN,
+            max_length=self.max_text_len,
             padding="max_length",
             truncation=True,
             return_tensors="pt",
@@ -124,12 +131,17 @@ class MultimodalDataset(Dataset):
 def build_dataloaders(data_dir: str,
                       tokenizer_name: str = TOKENIZER_NAME,
                       batch_size: int = BATCH_SIZE,
-                      num_workers: int = NUM_WORKERS):
+                      num_workers: int = NUM_WORKERS,
+                      max_text_len: int = MAX_TEXT_LEN):
     """
     전체 데이터셋을 train / val / test 로 분리 후 DataLoader 반환
     """
-    train_full = MultimodalDataset(data_dir, split="train", tokenizer_name=tokenizer_name)
-    eval_full  = MultimodalDataset(data_dir, split="val",   tokenizer_name=tokenizer_name)
+    train_full = MultimodalDataset(
+        data_dir, split="train", tokenizer_name=tokenizer_name, max_text_len=max_text_len
+    )
+    eval_full  = MultimodalDataset(
+        data_dir, split="val", tokenizer_name=tokenizer_name, max_text_len=max_text_len
+    )
 
     n = len(train_full)
     n_train = int(n * TRAIN_RATIO)
@@ -161,9 +173,13 @@ def build_dataloaders(data_dir: str,
 # 단독 실행 시 검증
 # ─────────────────────────────────────────────
 if __name__ == "__main__":
-    import sys
-    data_dir = sys.argv[1] if len(sys.argv) > 1 else "./data"
-    loaders = build_dataloaders(data_dir)
+    import argparse
+    parser = argparse.ArgumentParser(description="전처리 검증")
+    parser.add_argument("data_dir", nargs="?", default="./data")
+    parser.add_argument("--max_text_len", type=int, default=MAX_TEXT_LEN)
+    args = parser.parse_args()
+
+    loaders = build_dataloaders(args.data_dir, max_text_len=args.max_text_len)
     batch = next(iter(loaders["train"]))
     log.info(f"image shape : {batch['image'].shape}")
     log.info(f"input_ids   : {batch['input_ids'].shape}")

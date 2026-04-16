@@ -1,20 +1,21 @@
 #!/bin/bash
 # ============================================================
-#  run_all.sh  —  TMDb 멀티모달 실험 자동화 스크립트
-#  포스터+줄거리 / 15개 장르 / 3 GPU 최소 병렬
+#  run_all.sh  —  single10_final_balanced_full 실행 스크립트
+#  data -> single10 -> single10_balanced -> final 9 runs
 # ============================================================
 
 set -euo pipefail
 
 DATA_DIR="${DATA_DIR:-./data}"
-RESULTS_DIR="${RESULTS_DIR:-./results}"
+VARIANTS_ROOT="${VARIANTS_ROOT:-./data_variants}"
+RESULTS_DIR="${RESULTS_DIR:-./results_single10_final_balanced_full}"
 PYTHON="${PYTHON:-python3}"
 
 TMDB_API_KEY="${TMDB_API_KEY:-7335b880e3c8007b7beaa2e78dbd2a6c}"
-PER_GENRE="${PER_GENRE:-1000}"
+TARGETS_FILE="${TARGETS_FILE:-./collection_targets_single10_boosted.json}"
 
 MAX_PER_GPU="${MAX_PER_GPU:-1}"
-GPU_IDS="${GPU_IDS:-0 1 2}"
+GPU_IDS="${GPU_IDS:-0 1}"
 
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 LOG_FILE="${RESULTS_DIR}/run_${TIMESTAMP}.log"
@@ -24,12 +25,13 @@ mkdir -p "${RESULTS_DIR}"
 print_header() {
   echo ""
   echo "╔══════════════════════════════════════════════════════════╗"
-  echo "║   TMDb 멀티모달 자동화 실험                            ║"
-  echo "║   포스터+줄거리 | 15장르 | 3 GPU 최소 병렬             ║"
+  echo "║   TMDb 멀티모달 최종 실험                              ║"
+  echo "║   single10 -> balanced -> final 9 runs                ║"
   echo "╚══════════════════════════════════════════════════════════╝"
   echo "  DATA_DIR        : ${DATA_DIR}"
+  echo "  VARIANTS_ROOT   : ${VARIANTS_ROOT}"
   echo "  RESULTS_DIR     : ${RESULTS_DIR}"
-  echo "  PER_GENRE       : ${PER_GENRE}"
+  echo "  TARGETS_FILE    : ${TARGETS_FILE}"
   echo "  GPU_IDS         : ${GPU_IDS}"
   echo "  MAX_PER_GPU     : ${MAX_PER_GPU}"
   echo "  LOG_FILE        : ${LOG_FILE}"
@@ -67,21 +69,33 @@ download_dataset() {
   ${PYTHON} download_mmimdb.py \
     --data_dir "${DATA_DIR}" \
     --api_key "${TMDB_API_KEY}" \
-    --per_genre "${PER_GENRE}" \
+    --per_genre_overrides_file "${TARGETS_FILE}" \
     2>&1 | tee -a "${LOG_FILE}"
   echo ""
 }
 
-run_preprocess_check() {
-  echo "[3/5] 전처리 검증..."
-  ${PYTHON} preprocess.py "${DATA_DIR}" 2>&1 | tee -a "${LOG_FILE}"
+prepare_variants() {
+  echo "[3/5] variant 준비..."
+  ${PYTHON} prepare_dataset_variant.py \
+    --source_dir "${DATA_DIR}" \
+    --out_dir "${VARIANTS_ROOT}/single10" \
+    --single_genre_only \
+    --force 2>&1 | tee -a "${LOG_FILE}"
+
+  ${PYTHON} prepare_dataset_variant.py \
+    --source_dir "${VARIANTS_ROOT}/single10" \
+    --out_dir "${VARIANTS_ROOT}/single10_balanced" \
+    --balance_to_min \
+    --force 2>&1 | tee -a "${LOG_FILE}"
+
+  ${PYTHON} preprocess.py "${VARIANTS_ROOT}/single10_balanced" --max_text_len 96 2>&1 | tee -a "${LOG_FILE}"
   echo ""
 }
 
 run_experiments() {
   echo "[4/5] launcher.py 실행..."
   ${PYTHON} launcher.py \
-    --config experiments.json \
+    --config experiments_single10_final_balanced_full.json \
     --max_per_gpu "${MAX_PER_GPU}" \
     --gpus ${GPU_IDS} \
     --python "${PYTHON}" \
@@ -91,7 +105,6 @@ run_experiments() {
 
 print_summary() {
   echo "[5/5] 결과 확인"
-  echo "  summary: ${RESULTS_DIR}/summary.json"
   echo "  report : ${RESULTS_DIR}/summary_report.txt"
   echo "  logs   : ${LOG_FILE}"
   echo ""
@@ -102,7 +115,7 @@ main() {
   check_gpu
   install_packages
   download_dataset
-  run_preprocess_check
+  prepare_variants
   run_experiments
   print_summary
 }

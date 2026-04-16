@@ -65,9 +65,38 @@ if not HAS_PLOT:
 # ══════════════════════════════════════════════════════════════════
 
 class CNNImageEncoder(nn.Module):
-    """ImageNet pretrained ResNet50 backbone + projection head"""
+    """Lightweight CNN encoder for ablation against pretrained ResNet"""
 
     def __init__(self, out_dim: int = 256, dropout: float = 0.0, n_layers: int = 4):
+        super().__init__()
+        channels = [32, 64, 128, 256, 512][:max(1, n_layers)]
+        blocks = []
+        in_ch = 3
+        for ch in channels:
+            blocks.extend([
+                nn.Conv2d(in_ch, ch, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(ch),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(2),
+            ])
+            in_ch = ch
+        self.net = nn.Sequential(*blocks)
+        self.pool = nn.AdaptiveAvgPool2d((4, 4))
+        self.proj = nn.Sequential(
+            nn.Dropout(dropout) if dropout > 0 else nn.Identity(),
+            nn.Linear(channels[-1] * 4 * 4, out_dim),
+        )
+
+    def forward(self, x):
+        x = self.net(x)
+        x = self.pool(x).flatten(1)
+        return self.proj(x)
+
+
+class ResImageEncoder(nn.Module):
+    """ImageNet pretrained ResNet50 backbone + projection head"""
+
+    def __init__(self, out_dim: int = 256, dropout: float = 0.0):
         super().__init__()
         backbone = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
         self.net = nn.Sequential(*list(backbone.children())[:-1])  # 2048 x 1 x 1
@@ -299,6 +328,8 @@ class ExperimentResult:
     f1_weighted:           float = 0.0
     relaxed_top2_accuracy: float = 0.0
     relaxed_top3_accuracy: float = 0.0
+    relaxed_f1_top2:       float = 0.0
+    relaxed_f1_top3:       float = 0.0
     per_class_f1:          List  = field(default_factory=list)
     confusion_matrix:      List  = field(default_factory=list)
     best_val_loss:         float = 999.0
@@ -338,6 +369,9 @@ def evaluate(model, loader, criterion, n_classes, use_amp: bool = True):
     relaxed_top2_hits = 0
     relaxed_top3_hits = 0
     total_examples = 0
+    relaxed_true_top2 = []
+    relaxed_true_top3 = []
+    relaxed_pred = []
     for batch in loader:
         img   = batch["image"].to(DEVICE)
         ids   = batch["input_ids"].to(DEVICE)
@@ -366,6 +400,15 @@ def evaluate(model, loader, criterion, n_classes, use_amp: bool = True):
             relaxed_top2_hits += hit_top2
             relaxed_top3_hits += hit_top3
             total_examples += 1
+            pred_onehot = np.zeros(n_classes, dtype=np.int64)
+            pred_onehot[int(pred_label)] = 1
+            true_top2_multi = np.zeros(n_classes, dtype=np.int64)
+            true_top3_multi = np.zeros(n_classes, dtype=np.int64)
+            true_top2_multi[top2_list] = 1
+            true_top3_multi[top3_list] = 1
+            relaxed_pred.append(pred_onehot)
+            relaxed_true_top2.append(true_top2_multi)
+            relaxed_true_top3.append(true_top3_multi)
             all_prediction_rows.append({
                 "image_path": image_path,
                 "text": text,
@@ -379,6 +422,9 @@ def evaluate(model, loader, criterion, n_classes, use_amp: bool = True):
             })
 
     avg_loss = total_loss / len(loader)
+    relaxed_true_top2 = np.asarray(relaxed_true_top2)
+    relaxed_true_top3 = np.asarray(relaxed_true_top3)
+    relaxed_pred = np.asarray(relaxed_pred)
     return {
         "loss":               avg_loss,
         "accuracy":           accuracy_score(all_labels, all_preds),
@@ -395,6 +441,8 @@ def evaluate(model, loader, criterion, n_classes, use_amp: bool = True):
         "predictions":        all_prediction_rows,
         "relaxed_top2_accuracy": relaxed_top2_hits / max(total_examples, 1),
         "relaxed_top3_accuracy": relaxed_top3_hits / max(total_examples, 1),
+        "relaxed_f1_top2": f1_score(relaxed_true_top2, relaxed_pred, average="samples", zero_division=0),
+        "relaxed_f1_top3": f1_score(relaxed_true_top3, relaxed_pred, average="samples", zero_division=0),
     }
 
 
@@ -440,25 +488,32 @@ def run_experiment(
     dropout:       float = 0.3,
     cnn_layers:    int   = 3,
     freeze_bert:   bool  = False,
+    run_name:      str   = "",
+    max_text_len:  int   = MAX_TEXT_LEN,
     results_dir:   str   = "./results",
     save_models:   bool  = False,
     use_amp:       bool  = True,
 ) -> ExperimentResult:
     """
     config = {
-        "img_encoder": "cnn" | "transformer",
+        "img_encoder": "cnn" | "res" | "transformer",
         "txt_encoder": "dnn" | "transformer",
         "fusion":      "image_only" | "text_only" | "early" | "late" | "weighted_late" | "gated" | "cross_attention",
     }
     """
+    fusion_name = "joint" if config["fusion"] == "cross_attention" else config["fusion"]
+    img_name = config["img_encoder"].upper()
+    txt_name = config["txt_encoder"].upper()
     cnn_suffix = f"(L{cnn_layers})" if config["img_encoder"] == "cnn" else ""
-    cfg_name = "{img_encoder}+{txt_encoder}+{fusion}".format(**config) + cnn_suffix
+    cfg_name = run_name or (f"{img_name}+{txt_name}+{fusion_name}" + cnn_suffix)
     log.info(f"━━━━ 실험 시작: {cfg_name} ━━━━")
 
     # ── 인코더 / 퓨전 생성 ──
     if config["img_encoder"] == "cnn":
         img_enc = CNNImageEncoder(out_dim=feat_dim, dropout=dropout * 0.5,
                                   n_layers=cnn_layers)
+    elif config["img_encoder"] == "res":
+        img_enc = ResImageEncoder(out_dim=feat_dim, dropout=dropout * 0.5)
     else:
         img_enc = TransformerImageEncoder(out_dim=feat_dim, n_heads=4,
                                           n_layers=2, dropout=dropout * 0.3)
@@ -541,7 +596,9 @@ def run_experiment(
             f"acc={val_metrics['accuracy']:.4f} "
             f"rlx2={val_metrics['relaxed_top2_accuracy']:.4f} "
             f"rlx3={val_metrics['relaxed_top3_accuracy']:.4f} "
-            f"f1={val_metrics['f1_macro']:.4f}"
+            f"f1={val_metrics['f1_macro']:.4f} "
+            f"f1@2={val_metrics['relaxed_f1_top2']:.4f} "
+            f"f1@3={val_metrics['relaxed_f1_top3']:.4f}"
         )
 
         if val_metrics["loss"] < best_val_loss:
@@ -564,8 +621,13 @@ def run_experiment(
     test_metrics = evaluate(model, loaders["test"], criterion, n_classes, use_amp)
     elapsed = time.time() - t_start
 
+    result_config = dict(config)
+    result_config["freeze_bert"] = freeze_bert
+    result_config["max_text_len"] = max_text_len
+    result_config["run_name"] = run_name
+
     result = ExperimentResult(
-        config=config,
+        config=result_config,
         accuracy=test_metrics["accuracy"],
         precision_macro=test_metrics["precision_macro"],
         recall_macro=test_metrics["recall_macro"],
@@ -575,6 +637,8 @@ def run_experiment(
         f1_weighted=test_metrics["f1_weighted"],
         relaxed_top2_accuracy=test_metrics["relaxed_top2_accuracy"],
         relaxed_top3_accuracy=test_metrics["relaxed_top3_accuracy"],
+        relaxed_f1_top2=test_metrics["relaxed_f1_top2"],
+        relaxed_f1_top3=test_metrics["relaxed_f1_top3"],
         per_class_f1=test_metrics["per_class_f1"],
         confusion_matrix=test_metrics["confusion_matrix"],
         best_val_loss=best_val_loss,
@@ -590,7 +654,10 @@ def run_experiment(
         f"[{cfg_name}] TEST → acc={result.accuracy:.4f} "
         f"rlx2={result.relaxed_top2_accuracy:.4f} "
         f"rlx3={result.relaxed_top3_accuracy:.4f} "
-        f"f1_macro={result.f1_macro:.4f} f1_weighted={result.f1_weighted:.4f} "
+        f"f1_macro={result.f1_macro:.4f} "
+        f"f1@2={result.relaxed_f1_top2:.4f} "
+        f"f1@3={result.relaxed_f1_top3:.4f} "
+        f"f1_weighted={result.f1_weighted:.4f} "
         f"({elapsed / 60:.1f}분)"
     )
 
@@ -607,12 +674,18 @@ def run_experiment(
 # ══════════════════════════════════════════════════════════════════
 
 def _cfg_name(result: ExperimentResult) -> str:
+    if result.config.get("run_name"):
+        return result.config["run_name"]
     fusion_name = result.config["fusion"]
     if fusion_name == "cross_attention":
         fusion_name = "joint"
-    name = f"{result.config['img_encoder']}+{result.config['txt_encoder']}+{fusion_name}"
+    img_name = result.config["img_encoder"].upper()
+    txt_name = result.config["txt_encoder"].upper()
+    name = f"{img_name}+{txt_name}+{fusion_name}"
     if result.config.get("img_encoder") == "cnn":
         name += f"+L{result.config.get('cnn_layers', 3)}"
+    freeze_name = "freeze_on" if result.config.get("freeze_bert", False) else "freeze_off"
+    name += f"+{freeze_name}"
     return name
 
 
@@ -792,6 +865,8 @@ def generate_summary(results: List[ExperimentResult],
             "f1_weighted":        round(r.f1_weighted, 4),
             "relaxed_top2_accuracy": round(r.relaxed_top2_accuracy, 4),
             "relaxed_top3_accuracy": round(r.relaxed_top3_accuracy, 4),
+            "relaxed_f1_top2":   round(r.relaxed_f1_top2, 4),
+            "relaxed_f1_top3":   round(r.relaxed_f1_top3, 4),
             "per_class_f1":       [round(v, 4) for v in r.per_class_f1],
             "confusion_matrix":   r.confusion_matrix,
             "best_val_loss":      round(r.best_val_loss, 4),
@@ -813,6 +888,8 @@ def generate_summary(results: List[ExperimentResult],
             "f1_weighted":     best["f1_weighted"],
             "relaxed_top2_accuracy": best["relaxed_top2_accuracy"],
             "relaxed_top3_accuracy": best["relaxed_top3_accuracy"],
+            "relaxed_f1_top2": best["relaxed_f1_top2"],
+            "relaxed_f1_top3": best["relaxed_f1_top3"],
         },
         "all_results": rows_sorted,
     }
@@ -830,7 +907,7 @@ def generate_summary(results: List[ExperimentResult],
         f.write(f"Best Config: {best['config_name']}\n\n")
         header = (f"{'Rank':<4} {'Config':40} "
                   f"{'Acc':>6} {'P_mac':>6} {'R_mac':>6} {'F1_mac':>7} "
-                  f"{'F1_wgt':>7} {'Rlx@2':>7} {'Rlx@3':>7} {'Time(s)':>8}")
+                  f"{'F1_wgt':>7} {'Rlx@2':>7} {'Rlx@3':>7} {'F1@2':>7} {'F1@3':>7} {'Time(s)':>8}")
         f.write(header + "\n")
         f.write("-" * len(header) + "\n")
         for rank, row in enumerate(rows_sorted, 1):
@@ -839,7 +916,8 @@ def generate_summary(results: List[ExperimentResult],
                 f"{row['accuracy']:>6.4f} {row['precision_macro']:>6.4f} "
                 f"{row['recall_macro']:>6.4f} {row['f1_macro']:>7.4f} "
                 f"{row['f1_weighted']:>7.4f} {row['relaxed_top2_accuracy']:>7.4f} "
-                f"{row['relaxed_top3_accuracy']:>7.4f} {row['train_time_sec']:>8.1f}\n"
+                f"{row['relaxed_top3_accuracy']:>7.4f} {row['relaxed_f1_top2']:>7.4f} "
+                f"{row['relaxed_f1_top3']:>7.4f} {row['train_time_sec']:>8.1f}\n"
             )
         f.write("\n" + "=" * 70 + "\n")
         f.write("  Detailed Classification Report (test split)\n")
@@ -894,6 +972,10 @@ if __name__ == "__main__":
                         help="인코더 공통 출력 차원")
     parser.add_argument("--dropout",     type=float, default=0.3,
                         help="기본 드롭아웃 비율 (인코더/퓨전에 비례 적용)")
+    parser.add_argument("--max_text_len", type=int, default=MAX_TEXT_LEN,
+                        help="텍스트 최대 토큰 길이")
+    parser.add_argument("--run_name", default="",
+                        help="집계/리포트용 실험 이름 override")
     parser.add_argument("--cnn_layers",  nargs="+",  type=int, default=[4],
                         choices=[3, 4, 5],
                         help="CNN 레이어 수 목록 (예: --cnn_layers 3 4 5)")
@@ -902,15 +984,15 @@ if __name__ == "__main__":
 
     # ── 실험 조합 선택 (일부만 실행 가능) ──
     parser.add_argument("--img_encoders", nargs="+",
-                        default=["cnn"],
-                        choices=["cnn", "transformer"],
-                        help="실험할 이미지 인코더 (공백 구분, 예: --img_encoders cnn)")
+                        default=["res"],
+                        choices=["cnn", "res", "transformer"],
+                        help="실험할 이미지 인코더 (공백 구분, 예: --img_encoders cnn res)")
     parser.add_argument("--txt_encoders", nargs="+",
                         default=["transformer"],
                         choices=["dnn", "transformer"],
                         help="실험할 텍스트 인코더")
     parser.add_argument("--fusions", nargs="+",
-                        default=["image_only", "text_only", "early", "late", "weighted_late", "gated", "cross_attention"],
+                        default=["image_only", "text_only", "early", "late", "cross_attention"],
                         choices=["image_only", "text_only", "early", "late", "weighted_late", "gated", "cross_attention"],
                         help="실험할 퓨전 전략")
 
@@ -931,15 +1013,20 @@ if __name__ == "__main__":
     log.info(f"  웜업        : {args.warmup_epochs} epochs")
     log.info(f"  weight_decay: {args.weight_decay}")
     log.info(f"  feat_dim    : {args.feat_dim}  |  dropout: {args.dropout}  |  cnn_layers: {args.cnn_layers}")
+    log.info(f"  max_text_len: {args.max_text_len}")
     log.info(f"  freeze_bert : {args.freeze_bert}")
     log.info(f"  Mixed Prec  : {'ON' if use_amp else 'OFF'}")
     log.info(f"  Multi-GPU   : {'ON — DataParallel' if N_GPUS > 1 else 'OFF'} ({N_GPUS}개 GPU)")
     log.info("=" * 60)
 
-    loaders = build_dataloaders(args.data_dir, batch_size=args.batch_size)
+    loaders = build_dataloaders(
+        args.data_dir,
+        batch_size=args.batch_size,
+        max_text_len=args.max_text_len,
+    )
 
-    # CNN 레이어 수는 CNN 이미지 인코더에만 의미 있음
-    # img_encoder가 transformer일 때는 cnn_layers=[3]으로 고정해 중복 실험 방지
+    # CNN 레이어 수는 lightweight CNN 이미지 인코더에만 의미 있음
+    # res/transformer 이미지 인코더일 때는 cnn_layers=[3]으로 고정해 중복 실험 방지
     cnn_layers_list = sorted(set(args.cnn_layers))
     configs = []
     for ie, te, fu in itertools.product(args.img_encoders, args.txt_encoders, args.fusions):
@@ -968,6 +1055,8 @@ if __name__ == "__main__":
                 dropout=args.dropout,
                 cnn_layers=cfg["cnn_layers"],
                 freeze_bert=args.freeze_bert,
+                run_name=args.run_name,
+                max_text_len=args.max_text_len,
                 results_dir=args.results_dir,
                 save_models=args.save_models,
                 use_amp=use_amp,
@@ -986,5 +1075,7 @@ if __name__ == "__main__":
     log.info(f"  🎯 Accuracy   : {summary['best_scores']['accuracy']:.4f}")
     log.info(f"  🧪 Relaxed@2  : {summary['best_scores']['relaxed_top2_accuracy']:.4f}")
     log.info(f"  🧪 Relaxed@3  : {summary['best_scores']['relaxed_top3_accuracy']:.4f}")
+    log.info(f"  🧪 F1@2       : {summary['best_scores']['relaxed_f1_top2']:.4f}")
+    log.info(f"  🧪 F1@3       : {summary['best_scores']['relaxed_f1_top3']:.4f}")
     log.info(f"  📌 F1 Macro   : {summary['best_scores']['f1_macro']:.4f}")
     log.info("=" * 60)
