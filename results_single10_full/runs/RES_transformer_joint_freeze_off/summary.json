@@ -1,0 +1,171 @@
+{
+  "rank_metric": "f1_weighted",
+  "best_config": "RES+transformer+joint+freeze_off",
+  "best_scores": {
+    "accuracy": 0.6755,
+    "precision_macro": 0.646,
+    "recall_macro": 0.6067,
+    "f1_macro": 0.6136,
+    "f1_weighted": 0.6712,
+    "relaxed_top2_accuracy": 0.6755,
+    "relaxed_top3_accuracy": 0.6755,
+    "relaxed_f1_top2": 0.6755,
+    "relaxed_f1_top3": 0.6755
+  },
+  "all_results": [
+    {
+      "config_name": "RES+transformer+joint+freeze_off",
+      "img_encoder": "res",
+      "txt_encoder": "transformer",
+      "fusion": "cross_attention",
+      "accuracy": 0.6755,
+      "precision_macro": 0.646,
+      "recall_macro": 0.6067,
+      "f1_macro": 0.6136,
+      "precision_weighted": 0.6918,
+      "recall_weighted": 0.6755,
+      "f1_weighted": 0.6712,
+      "relaxed_top2_accuracy": 0.6755,
+      "relaxed_top3_accuracy": 0.6755,
+      "relaxed_f1_top2": 0.6755,
+      "relaxed_f1_top3": 0.6755,
+      "per_class_f1": [
+        0.5238,
+        0.2807,
+        0.4393,
+        0.6892,
+        0.8449,
+        0.4833,
+        0.7473,
+        0.7284,
+        0.6722,
+        0.7264
+      ],
+      "confusion_matrix": [
+        [
+          33,
+          8,
+          0,
+          17,
+          3,
+          0,
+          3,
+          0,
+          1,
+          6
+        ],
+        [
+          1,
+          8,
+          0,
+          4,
+          2,
+          2,
+          3,
+          0,
+          6,
+          2
+        ],
+        [
+          5,
+          3,
+          38,
+          15,
+          2,
+          4,
+          4,
+          1,
+          24,
+          1
+        ],
+        [
+          6,
+          1,
+          1,
+          112,
+          4,
+          3,
+          5,
+          0,
+          11,
+          2
+        ],
+        [
+          3,
+          1,
+          4,
+          6,
+          158,
+          0,
+          0,
+          3,
+          7,
+          9
+        ],
+        [
+          1,
+          1,
+          15,
+          5,
+          3,
+          29,
+          4,
+          1,
+          16,
+          1
+        ],
+        [
+          4,
+          0,
+          10,
+          10,
+          0,
+          1,
+          105,
+          1,
+          11,
+          9
+        ],
+        [
+          0,
+          4,
+          4,
+          1,
+          5,
+          2,
+          1,
+          59,
+          19,
+          1
+        ],
+        [
+          0,
+          1,
+          1,
+          6,
+          3,
+          2,
+          3,
+          1,
+          122,
+          2
+        ],
+        [
+          2,
+          2,
+          3,
+          4,
+          3,
+          1,
+          2,
+          0,
+          5,
+          73
+        ]
+      ],
+      "best_val_loss": 0.9603,
+      "train_time_sec": 3694.1,
+      "classification_report": "              precision    recall  f1-score   support\n\n           0       0.60      0.46      0.52        71\n           1       0.28      0.29      0.28        28\n           2       0.50      0.39      0.44        97\n           3       0.62      0.77      0.69       145\n           4       0.86      0.83      0.84       191\n           5       0.66      0.38      0.48        76\n           6       0.81      0.70      0.75       151\n           7       0.89      0.61      0.73        96\n           8       0.55      0.87      0.67       141\n           9       0.69      0.77      0.73        95\n\n    accuracy                           0.68      1091\n   macro avg       0.65      0.61      0.61      1091\nweighted avg       0.69      0.68      0.67      1091\n"
+    }
+  ]
+}

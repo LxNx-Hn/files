@@ -1,0 +1,164 @@
+2026-04-15 16:28:01,289 [PREPROCESS] Device: cuda | 사용 가능한 GPU 수: 1
+2026-04-15 16:28:01,291 [PREPROCESS] ============================================================
+2026-04-15 16:28:01,291 [PREPROCESS]   에폭        : 100
+2026-04-15 16:28:01,291 [PREPROCESS]   배치 크기   : 32  (GPU당 32)
+2026-04-15 16:28:01,291 [PREPROCESS]   학습률      : base=0.001 img=0.0005 txt=2e-05 fusion=0.001
+2026-04-15 16:28:01,292 [PREPROCESS]   웜업        : 5 epochs
+2026-04-15 16:28:01,292 [PREPROCESS]   weight_decay: 0.0001
+2026-04-15 16:28:01,292 [PREPROCESS]   feat_dim    : 256  |  dropout: 0.4  |  cnn_layers: [4]
+2026-04-15 16:28:01,292 [PREPROCESS]   max_text_len: 96
+2026-04-15 16:28:01,292 [PREPROCESS]   freeze_bert : False
+2026-04-15 16:28:01,292 [PREPROCESS]   Mixed Prec  : ON
+2026-04-15 16:28:01,292 [PREPROCESS]   Multi-GPU   : OFF (1개 GPU)
+2026-04-15 16:28:01,292 [PREPROCESS] ============================================================
+2026-04-15 16:28:01,324 [PREPROCESS] [train] 샘플 수: 7265
+2026-04-15 16:28:01,439 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-15 16:28:01,444 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-04-15 16:28:01,481 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-15 16:28:01,486 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-04-15 16:28:01,527 [PREPROCESS] HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-04-15 16:28:01,560 [PREPROCESS] HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-15 16:28:01,698 [PREPROCESS] [val] 샘플 수: 7265
+2026-04-15 16:28:01,728 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-15 16:28:01,734 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-04-15 16:28:01,767 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-15 16:28:01,773 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-04-15 16:28:01,809 [PREPROCESS] HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-04-15 16:28:01,844 [PREPROCESS] HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-15 16:28:01,945 [PREPROCESS] DataLoader 준비 완료 | train=5085 val=1089 test=1091
+2026-04-15 16:28:01,945 [PREPROCESS] 총 실험 수: 1
+2026-04-15 16:28:01,946 [PREPROCESS] ━━━━ 실험 시작: CNN+transformer+late+freeze_off ━━━━
+2026-04-15 16:28:02,001 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-04-15 16:28:02,002 [PREPROCESS] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-04-15 16:28:02,009 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|                                                                                                | 0/103 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 6886.32it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-04-15 16:28:39,039 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 001/100 | train=1.9880 val=1.7323 acc=0.4362 rlx2=0.4362 rlx3=0.4362 f1=0.2973 f1@2=0.4362 f1@3=0.4362
+2026-04-15 16:29:15,603 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 002/100 | train=1.2549 val=0.9858 acc=0.6804 rlx2=0.6804 rlx3=0.6804 f1=0.6243 f1@2=0.6804 f1@3=0.6804
+2026-04-15 16:29:48,900 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 003/100 | train=0.9431 val=0.9783 acc=0.6630 rlx2=0.6630 rlx3=0.6630 f1=0.6269 f1@2=0.6630 f1@3=0.6630
+2026-04-15 16:30:27,330 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 004/100 | train=0.8267 val=0.8741 acc=0.7291 rlx2=0.7291 rlx3=0.7291 f1=0.6976 f1@2=0.7291 f1@3=0.7291
+/usr/local/lib/python3.11/dist-packages/torch/optim/lr_scheduler.py:232: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+2026-04-15 16:31:01,380 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 005/100 | train=0.6852 val=0.9506 acc=0.7080 rlx2=0.7080 rlx3=0.7080 f1=0.6598 f1@2=0.7080 f1@3=0.7080
+2026-04-15 16:31:37,062 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 006/100 | train=0.5828 val=0.9448 acc=0.7199 rlx2=0.7199 rlx3=0.7199 f1=0.6951 f1@2=0.7199 f1@3=0.7199
+2026-04-15 16:32:17,984 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 007/100 | train=0.4384 val=1.1244 acc=0.6905 rlx2=0.6905 rlx3=0.6905 f1=0.6519 f1@2=0.6905 f1@3=0.6905
+2026-04-15 16:33:01,568 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 008/100 | train=0.3085 val=1.1586 acc=0.7080 rlx2=0.7080 rlx3=0.7080 f1=0.6774 f1@2=0.7080 f1@3=0.7080
+2026-04-15 16:33:44,687 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 009/100 | train=0.2332 val=1.3108 acc=0.6933 rlx2=0.6933 rlx3=0.6933 f1=0.6660 f1@2=0.6933 f1@3=0.6933
+2026-04-15 16:34:29,358 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 010/100 | train=0.1728 val=1.5287 acc=0.7089 rlx2=0.7089 rlx3=0.7089 f1=0.6746 f1@2=0.7089 f1@3=0.7089
+2026-04-15 16:35:07,263 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 011/100 | train=0.1349 val=1.5436 acc=0.7052 rlx2=0.7052 rlx3=0.7052 f1=0.6752 f1@2=0.7052 f1@3=0.7052
+2026-04-15 16:35:48,006 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 012/100 | train=0.0864 val=1.6329 acc=0.7016 rlx2=0.7016 rlx3=0.7016 f1=0.6787 f1@2=0.7016 f1@3=0.7016
+2026-04-15 16:36:30,442 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 013/100 | train=0.0826 val=1.7835 acc=0.7089 rlx2=0.7089 rlx3=0.7089 f1=0.6800 f1@2=0.7089 f1@3=0.7089
+2026-04-15 16:37:03,899 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 014/100 | train=0.0542 val=1.9040 acc=0.6961 rlx2=0.6961 rlx3=0.6961 f1=0.6656 f1@2=0.6961 f1@3=0.6961
+2026-04-15 16:37:40,071 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 015/100 | train=0.0680 val=2.0278 acc=0.6988 rlx2=0.6988 rlx3=0.6988 f1=0.6529 f1@2=0.6988 f1@3=0.6988
+2026-04-15 16:38:15,679 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 016/100 | train=0.0536 val=2.1377 acc=0.7034 rlx2=0.7034 rlx3=0.7034 f1=0.6786 f1@2=0.7034 f1@3=0.7034
+2026-04-15 16:38:56,714 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 017/100 | train=0.0389 val=2.1917 acc=0.7025 rlx2=0.7025 rlx3=0.7025 f1=0.6825 f1@2=0.7025 f1@3=0.7025
+2026-04-15 16:39:36,078 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 018/100 | train=0.0383 val=2.2319 acc=0.6961 rlx2=0.6961 rlx3=0.6961 f1=0.6603 f1@2=0.6961 f1@3=0.6961
+2026-04-15 16:40:14,593 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 019/100 | train=0.0502 val=2.2250 acc=0.7080 rlx2=0.7080 rlx3=0.7080 f1=0.6695 f1@2=0.7080 f1@3=0.7080
+2026-04-15 16:40:50,640 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 020/100 | train=0.0542 val=2.3585 acc=0.6924 rlx2=0.6924 rlx3=0.6924 f1=0.6561 f1@2=0.6924 f1@3=0.6924
+2026-04-15 16:41:23,821 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 021/100 | train=0.0495 val=2.2649 acc=0.7052 rlx2=0.7052 rlx3=0.7052 f1=0.6693 f1@2=0.7052 f1@3=0.7052
+2026-04-15 16:41:51,969 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 022/100 | train=0.0317 val=2.3975 acc=0.6997 rlx2=0.6997 rlx3=0.6997 f1=0.6671 f1@2=0.6997 f1@3=0.6997
+2026-04-15 16:42:22,594 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 023/100 | train=0.0378 val=2.3036 acc=0.7153 rlx2=0.7153 rlx3=0.7153 f1=0.6823 f1@2=0.7153 f1@3=0.7153
+2026-04-15 16:42:54,373 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 024/100 | train=0.0320 val=2.3961 acc=0.7016 rlx2=0.7016 rlx3=0.7016 f1=0.6722 f1@2=0.7016 f1@3=0.7016
+2026-04-15 16:43:26,401 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 025/100 | train=0.0456 val=2.5266 acc=0.6896 rlx2=0.6896 rlx3=0.6896 f1=0.6548 f1@2=0.6896 f1@3=0.6896
+2026-04-15 16:43:58,891 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 026/100 | train=0.0271 val=2.4783 acc=0.7034 rlx2=0.7034 rlx3=0.7034 f1=0.6778 f1@2=0.7034 f1@3=0.7034
+2026-04-15 16:44:31,089 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 027/100 | train=0.0269 val=2.6258 acc=0.6970 rlx2=0.6970 rlx3=0.6970 f1=0.6707 f1@2=0.6970 f1@3=0.6970
+2026-04-15 16:45:02,714 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 028/100 | train=0.0230 val=2.7598 acc=0.7080 rlx2=0.7080 rlx3=0.7080 f1=0.6812 f1@2=0.7080 f1@3=0.7080
+2026-04-15 16:45:36,159 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 029/100 | train=0.0234 val=2.5965 acc=0.7062 rlx2=0.7062 rlx3=0.7062 f1=0.6735 f1@2=0.7062 f1@3=0.7062
+2026-04-15 16:46:06,393 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 030/100 | train=0.0315 val=2.8380 acc=0.7025 rlx2=0.7025 rlx3=0.7025 f1=0.6759 f1@2=0.7025 f1@3=0.7025
+2026-04-15 16:46:35,651 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 031/100 | train=0.0271 val=2.8567 acc=0.7034 rlx2=0.7034 rlx3=0.7034 f1=0.6608 f1@2=0.7034 f1@3=0.7034
+2026-04-15 16:47:01,791 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 032/100 | train=0.0225 val=3.1160 acc=0.6997 rlx2=0.6997 rlx3=0.6997 f1=0.6675 f1@2=0.6997 f1@3=0.6997
+2026-04-15 16:47:28,698 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 033/100 | train=0.0269 val=2.8578 acc=0.7016 rlx2=0.7016 rlx3=0.7016 f1=0.6661 f1@2=0.7016 f1@3=0.7016
+2026-04-15 16:48:03,295 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 034/100 | train=0.0255 val=2.8393 acc=0.7016 rlx2=0.7016 rlx3=0.7016 f1=0.6623 f1@2=0.7016 f1@3=0.7016
+2026-04-15 16:48:30,866 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 035/100 | train=0.0169 val=2.8684 acc=0.7089 rlx2=0.7089 rlx3=0.7089 f1=0.6729 f1@2=0.7089 f1@3=0.7089
+2026-04-15 16:48:57,321 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 036/100 | train=0.0204 val=2.8457 acc=0.7098 rlx2=0.7098 rlx3=0.7098 f1=0.6790 f1@2=0.7098 f1@3=0.7098
+2026-04-15 16:49:23,054 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 037/100 | train=0.0211 val=3.1737 acc=0.6905 rlx2=0.6905 rlx3=0.6905 f1=0.6603 f1@2=0.6905 f1@3=0.6905
+2026-04-15 16:49:51,262 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 038/100 | train=0.0380 val=2.8676 acc=0.7071 rlx2=0.7071 rlx3=0.7071 f1=0.6750 f1@2=0.7071 f1@3=0.7071
+2026-04-15 16:50:21,778 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 039/100 | train=0.0187 val=2.9806 acc=0.7144 rlx2=0.7144 rlx3=0.7144 f1=0.6791 f1@2=0.7144 f1@3=0.7144
+2026-04-15 16:50:56,530 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 040/100 | train=0.0212 val=3.0092 acc=0.7107 rlx2=0.7107 rlx3=0.7107 f1=0.6808 f1@2=0.7107 f1@3=0.7107
+2026-04-15 16:51:28,224 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 041/100 | train=0.0210 val=3.0979 acc=0.7071 rlx2=0.7071 rlx3=0.7071 f1=0.6833 f1@2=0.7071 f1@3=0.7071
+2026-04-15 16:52:02,195 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 042/100 | train=0.0149 val=3.1744 acc=0.7098 rlx2=0.7098 rlx3=0.7098 f1=0.6799 f1@2=0.7098 f1@3=0.7098
+2026-04-15 16:52:36,216 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 043/100 | train=0.0060 val=3.0642 acc=0.7172 rlx2=0.7172 rlx3=0.7172 f1=0.6849 f1@2=0.7172 f1@3=0.7172
+2026-04-15 16:53:08,407 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 044/100 | train=0.0058 val=3.1010 acc=0.7135 rlx2=0.7135 rlx3=0.7135 f1=0.6830 f1@2=0.7135 f1@3=0.7135
+2026-04-15 16:53:41,310 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 045/100 | train=0.0115 val=3.1591 acc=0.7227 rlx2=0.7227 rlx3=0.7227 f1=0.6909 f1@2=0.7227 f1@3=0.7227
+2026-04-15 16:54:15,804 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 046/100 | train=0.0166 val=3.5508 acc=0.6924 rlx2=0.6924 rlx3=0.6924 f1=0.6531 f1@2=0.6924 f1@3=0.6924
+2026-04-15 16:54:57,322 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 047/100 | train=0.0192 val=3.2063 acc=0.7052 rlx2=0.7052 rlx3=0.7052 f1=0.6756 f1@2=0.7052 f1@3=0.7052
+2026-04-15 16:55:46,488 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 048/100 | train=0.0066 val=3.2325 acc=0.7025 rlx2=0.7025 rlx3=0.7025 f1=0.6714 f1@2=0.7025 f1@3=0.7025
+2026-04-15 16:56:34,192 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 049/100 | train=0.0104 val=3.1569 acc=0.7098 rlx2=0.7098 rlx3=0.7098 f1=0.6705 f1@2=0.7098 f1@3=0.7098
+2026-04-15 16:57:16,941 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 050/100 | train=0.0081 val=3.3236 acc=0.6942 rlx2=0.6942 rlx3=0.6942 f1=0.6621 f1@2=0.6942 f1@3=0.6942
+2026-04-15 16:57:55,808 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 051/100 | train=0.0143 val=3.2348 acc=0.7025 rlx2=0.7025 rlx3=0.7025 f1=0.6710 f1@2=0.7025 f1@3=0.7025
+2026-04-15 16:58:39,223 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 052/100 | train=0.0062 val=3.2213 acc=0.7052 rlx2=0.7052 rlx3=0.7052 f1=0.6678 f1@2=0.7052 f1@3=0.7052
+2026-04-15 16:59:25,084 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 053/100 | train=0.0047 val=3.3507 acc=0.7025 rlx2=0.7025 rlx3=0.7025 f1=0.6554 f1@2=0.7025 f1@3=0.7025
+2026-04-15 17:00:08,687 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 054/100 | train=0.0055 val=3.3213 acc=0.7080 rlx2=0.7080 rlx3=0.7080 f1=0.6634 f1@2=0.7080 f1@3=0.7080
+2026-04-15 17:00:50,802 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 055/100 | train=0.0071 val=3.4236 acc=0.6979 rlx2=0.6979 rlx3=0.6979 f1=0.6598 f1@2=0.6979 f1@3=0.6979
+2026-04-15 17:01:34,445 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 056/100 | train=0.0066 val=3.2670 acc=0.7006 rlx2=0.7006 rlx3=0.7006 f1=0.6613 f1@2=0.7006 f1@3=0.7006
+2026-04-15 17:02:17,653 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 057/100 | train=0.0084 val=3.3340 acc=0.7034 rlx2=0.7034 rlx3=0.7034 f1=0.6732 f1@2=0.7034 f1@3=0.7034
+2026-04-15 17:03:02,038 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 058/100 | train=0.0059 val=3.5577 acc=0.6933 rlx2=0.6933 rlx3=0.6933 f1=0.6674 f1@2=0.6933 f1@3=0.6933
+2026-04-15 17:03:48,374 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 059/100 | train=0.0095 val=3.4584 acc=0.6979 rlx2=0.6979 rlx3=0.6979 f1=0.6662 f1@2=0.6979 f1@3=0.6979
+2026-04-15 17:04:35,544 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 060/100 | train=0.0096 val=3.3332 acc=0.7062 rlx2=0.7062 rlx3=0.7062 f1=0.6799 f1@2=0.7062 f1@3=0.7062
+2026-04-15 17:05:22,571 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 061/100 | train=0.0042 val=3.3934 acc=0.7016 rlx2=0.7016 rlx3=0.7016 f1=0.6649 f1@2=0.7016 f1@3=0.7016
+2026-04-15 17:06:08,887 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 062/100 | train=0.0011 val=3.3432 acc=0.7071 rlx2=0.7071 rlx3=0.7071 f1=0.6772 f1@2=0.7071 f1@3=0.7071
+2026-04-15 17:06:53,040 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 063/100 | train=0.0038 val=3.3597 acc=0.6997 rlx2=0.6997 rlx3=0.6997 f1=0.6740 f1@2=0.6997 f1@3=0.6997
+2026-04-15 17:07:32,482 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 064/100 | train=0.0061 val=3.3530 acc=0.7080 rlx2=0.7080 rlx3=0.7080 f1=0.6773 f1@2=0.7080 f1@3=0.7080
+2026-04-15 17:08:01,672 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 065/100 | train=0.0047 val=3.2916 acc=0.7107 rlx2=0.7107 rlx3=0.7107 f1=0.6807 f1@2=0.7107 f1@3=0.7107
+2026-04-15 17:08:35,607 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 066/100 | train=0.0032 val=3.2733 acc=0.7208 rlx2=0.7208 rlx3=0.7208 f1=0.6944 f1@2=0.7208 f1@3=0.7208
+2026-04-15 17:09:13,990 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 067/100 | train=0.0010 val=3.2517 acc=0.7144 rlx2=0.7144 rlx3=0.7144 f1=0.6880 f1@2=0.7144 f1@3=0.7144
+2026-04-15 17:09:47,881 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 068/100 | train=0.0010 val=3.2908 acc=0.7089 rlx2=0.7089 rlx3=0.7089 f1=0.6729 f1@2=0.7089 f1@3=0.7089
+2026-04-15 17:10:17,726 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 069/100 | train=0.0008 val=3.3555 acc=0.7135 rlx2=0.7135 rlx3=0.7135 f1=0.6825 f1@2=0.7135 f1@3=0.7135
+2026-04-15 17:10:47,613 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 070/100 | train=0.0032 val=3.2959 acc=0.7199 rlx2=0.7199 rlx3=0.7199 f1=0.6908 f1@2=0.7199 f1@3=0.7199
+2026-04-15 17:11:16,606 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 071/100 | train=0.0037 val=3.3586 acc=0.7181 rlx2=0.7181 rlx3=0.7181 f1=0.6902 f1@2=0.7181 f1@3=0.7181
+2026-04-15 17:11:48,889 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 072/100 | train=0.0005 val=3.3115 acc=0.7190 rlx2=0.7190 rlx3=0.7190 f1=0.6903 f1@2=0.7190 f1@3=0.7190
+2026-04-15 17:12:23,548 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 073/100 | train=0.0005 val=3.3210 acc=0.7227 rlx2=0.7227 rlx3=0.7227 f1=0.6930 f1@2=0.7227 f1@3=0.7227
+2026-04-15 17:12:57,591 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 074/100 | train=0.0018 val=3.4080 acc=0.7227 rlx2=0.7227 rlx3=0.7227 f1=0.6932 f1@2=0.7227 f1@3=0.7227
+2026-04-15 17:13:34,263 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 075/100 | train=0.0012 val=3.3675 acc=0.7181 rlx2=0.7181 rlx3=0.7181 f1=0.6922 f1@2=0.7181 f1@3=0.7181
+2026-04-15 17:14:06,667 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 076/100 | train=0.0005 val=3.4000 acc=0.7199 rlx2=0.7199 rlx3=0.7199 f1=0.6928 f1@2=0.7199 f1@3=0.7199
+2026-04-15 17:14:43,154 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 077/100 | train=0.0023 val=3.4506 acc=0.7163 rlx2=0.7163 rlx3=0.7163 f1=0.6816 f1@2=0.7163 f1@3=0.7163
+2026-04-15 17:15:20,187 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 078/100 | train=0.0015 val=3.3913 acc=0.7153 rlx2=0.7153 rlx3=0.7153 f1=0.6852 f1@2=0.7153 f1@3=0.7153
+2026-04-15 17:15:58,486 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 079/100 | train=0.0008 val=3.4829 acc=0.7163 rlx2=0.7163 rlx3=0.7163 f1=0.6809 f1@2=0.7163 f1@3=0.7163
+2026-04-15 17:16:43,478 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 080/100 | train=0.0015 val=3.4288 acc=0.7163 rlx2=0.7163 rlx3=0.7163 f1=0.6884 f1@2=0.7163 f1@3=0.7163
+2026-04-15 17:17:31,717 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 081/100 | train=0.0012 val=3.5157 acc=0.7126 rlx2=0.7126 rlx3=0.7126 f1=0.6826 f1@2=0.7126 f1@3=0.7126
+2026-04-15 17:18:18,606 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 082/100 | train=0.0013 val=3.4652 acc=0.7098 rlx2=0.7098 rlx3=0.7098 f1=0.6774 f1@2=0.7098 f1@3=0.7098
+2026-04-15 17:19:08,593 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 083/100 | train=0.0027 val=3.4115 acc=0.7144 rlx2=0.7144 rlx3=0.7144 f1=0.6820 f1@2=0.7144 f1@3=0.7144
+2026-04-15 17:19:55,158 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 084/100 | train=0.0014 val=3.4258 acc=0.7098 rlx2=0.7098 rlx3=0.7098 f1=0.6785 f1@2=0.7098 f1@3=0.7098
+2026-04-15 17:20:35,936 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 085/100 | train=0.0011 val=3.4171 acc=0.7153 rlx2=0.7153 rlx3=0.7153 f1=0.6851 f1@2=0.7153 f1@3=0.7153
+2026-04-15 17:21:13,051 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 086/100 | train=0.0015 val=3.3749 acc=0.7135 rlx2=0.7135 rlx3=0.7135 f1=0.6819 f1@2=0.7135 f1@3=0.7135
+2026-04-15 17:21:51,406 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 087/100 | train=0.0016 val=3.3803 acc=0.7126 rlx2=0.7126 rlx3=0.7126 f1=0.6852 f1@2=0.7126 f1@3=0.7126
+2026-04-15 17:22:32,782 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 088/100 | train=0.0007 val=3.3780 acc=0.7163 rlx2=0.7163 rlx3=0.7163 f1=0.6885 f1@2=0.7163 f1@3=0.7163
+2026-04-15 17:23:13,666 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 089/100 | train=0.0015 val=3.3710 acc=0.7135 rlx2=0.7135 rlx3=0.7135 f1=0.6823 f1@2=0.7135 f1@3=0.7135
+2026-04-15 17:23:53,386 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 090/100 | train=0.0003 val=3.3750 acc=0.7126 rlx2=0.7126 rlx3=0.7126 f1=0.6815 f1@2=0.7126 f1@3=0.7126
+2026-04-15 17:24:31,611 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 091/100 | train=0.0004 val=3.3709 acc=0.7117 rlx2=0.7117 rlx3=0.7117 f1=0.6819 f1@2=0.7117 f1@3=0.7117
+2026-04-15 17:25:03,318 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 092/100 | train=0.0019 val=3.3699 acc=0.7153 rlx2=0.7153 rlx3=0.7153 f1=0.6858 f1@2=0.7153 f1@3=0.7153
+2026-04-15 17:25:42,924 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 093/100 | train=0.0010 val=3.3557 acc=0.7126 rlx2=0.7126 rlx3=0.7126 f1=0.6838 f1@2=0.7126 f1@3=0.7126
+2026-04-15 17:26:21,048 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 094/100 | train=0.0011 val=3.3575 acc=0.7153 rlx2=0.7153 rlx3=0.7153 f1=0.6868 f1@2=0.7153 f1@3=0.7153
+2026-04-15 17:26:56,414 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 095/100 | train=0.0003 val=3.3641 acc=0.7144 rlx2=0.7144 rlx3=0.7144 f1=0.6847 f1@2=0.7144 f1@3=0.7144
+2026-04-15 17:27:42,694 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 096/100 | train=0.0023 val=3.3619 acc=0.7144 rlx2=0.7144 rlx3=0.7144 f1=0.6851 f1@2=0.7144 f1@3=0.7144
+2026-04-15 17:28:16,456 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 097/100 | train=0.0005 val=3.3562 acc=0.7135 rlx2=0.7135 rlx3=0.7135 f1=0.6841 f1@2=0.7135 f1@3=0.7135
+2026-04-15 17:29:01,508 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 098/100 | train=0.0011 val=3.3541 acc=0.7135 rlx2=0.7135 rlx3=0.7135 f1=0.6842 f1@2=0.7135 f1@3=0.7135
+2026-04-15 17:29:44,396 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 099/100 | train=0.0011 val=3.3597 acc=0.7135 rlx2=0.7135 rlx3=0.7135 f1=0.6851 f1@2=0.7135 f1@3=0.7135
+2026-04-15 17:30:20,289 [PREPROCESS] [CNN+transformer+late+freeze_off] epoch 100/100 | train=0.0006 val=3.3604 acc=0.7135 rlx2=0.7135 rlx3=0.7135 f1=0.6845 f1@2=0.7135 f1@3=0.7135
+2026-04-15 17:30:28,011 [PREPROCESS] [CNN+transformer+late+freeze_off] TEST → acc=0.7159 rlx2=0.7159 rlx3=0.7159 f1_macro=0.6632 f1@2=0.7159 f1@3=0.7159 f1_weighted=0.7123 (62.4분)
+2026-04-15 17:30:28,468 [PREPROCESS]   Saved training curve: plots/CNN_transformer_late_freeze_off_curve.png
+2026-04-15 17:30:28,526 [PREPROCESS]   Saved predictions: results_single10_full/runs/CNN_transformer_late_freeze_off/all_predictions.csv
+2026-04-15 17:30:28,527 [PREPROCESS]   Saved misclassified samples: results_single10_full/runs/CNN_transformer_late_freeze_off/misclassified_samples.csv
+2026-04-15 17:30:28,550 [PREPROCESS] 요약 저장 완료 → results_single10_full/runs/CNN_transformer_late_freeze_off/summary.json
+2026-04-15 17:30:28,551 [PREPROCESS] 리포트 저장 완료 → results_single10_full/runs/CNN_transformer_late_freeze_off/summary_report.txt
+2026-04-15 17:30:28,703 [PREPROCESS]   Saved F1 comparison plot: plots/f1_comparison.png
+2026-04-15 17:30:28,865 [PREPROCESS]   Saved per-class F1 plot: plots/per_class_f1_best.png
+2026-04-15 17:30:29,157 [PREPROCESS]   Saved confusion matrix: plots/confusion_matrix_best.png
+2026-04-15 17:30:29,157 [PREPROCESS] 
+============================================================
+2026-04-15 17:30:29,158 [PREPROCESS]   ✅ 최적 구성  : CNN+transformer+late+freeze_off
+2026-04-15 17:30:29,158 [PREPROCESS]   📊 기준 지표  : f1_weighted = 0.7123
+2026-04-15 17:30:29,159 [PREPROCESS]   🎯 Accuracy   : 0.7159
+2026-04-15 17:30:29,159 [PREPROCESS]   🧪 Relaxed@2  : 0.7159
+2026-04-15 17:30:29,160 [PREPROCESS]   🧪 Relaxed@3  : 0.7159
+2026-04-15 17:30:29,160 [PREPROCESS]   🧪 F1@2       : 0.7159
+2026-04-15 17:30:29,161 [PREPROCESS]   🧪 F1@3       : 0.7159
+2026-04-15 17:30:29,161 [PREPROCESS]   📌 F1 Macro   : 0.6632
+2026-04-15 17:30:29,162 [PREPROCESS] ============================================================

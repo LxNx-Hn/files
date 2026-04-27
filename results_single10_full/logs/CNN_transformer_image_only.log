@@ -1,0 +1,164 @@
+2026-04-15 18:32:40,078 [PREPROCESS] Device: cuda | 사용 가능한 GPU 수: 1
+2026-04-15 18:32:40,080 [PREPROCESS] ============================================================
+2026-04-15 18:32:40,081 [PREPROCESS]   에폭        : 100
+2026-04-15 18:32:40,081 [PREPROCESS]   배치 크기   : 32  (GPU당 32)
+2026-04-15 18:32:40,081 [PREPROCESS]   학습률      : base=0.001 img=0.0005 txt=2e-05 fusion=0.001
+2026-04-15 18:32:40,081 [PREPROCESS]   웜업        : 5 epochs
+2026-04-15 18:32:40,081 [PREPROCESS]   weight_decay: 0.0001
+2026-04-15 18:32:40,081 [PREPROCESS]   feat_dim    : 256  |  dropout: 0.4  |  cnn_layers: [4]
+2026-04-15 18:32:40,082 [PREPROCESS]   max_text_len: 96
+2026-04-15 18:32:40,082 [PREPROCESS]   freeze_bert : True
+2026-04-15 18:32:40,082 [PREPROCESS]   Mixed Prec  : ON
+2026-04-15 18:32:40,082 [PREPROCESS]   Multi-GPU   : OFF (1개 GPU)
+2026-04-15 18:32:40,082 [PREPROCESS] ============================================================
+2026-04-15 18:32:40,120 [PREPROCESS] [train] 샘플 수: 7265
+2026-04-15 18:32:40,230 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-15 18:32:40,235 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-04-15 18:32:40,290 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-15 18:32:40,295 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-04-15 18:32:40,332 [PREPROCESS] HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-04-15 18:32:40,367 [PREPROCESS] HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-15 18:32:40,529 [PREPROCESS] [val] 샘플 수: 7265
+2026-04-15 18:32:40,560 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-15 18:32:40,565 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-04-15 18:32:40,603 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-04-15 18:32:40,603 [PREPROCESS] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-04-15 18:32:40,609 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-04-15 18:32:40,657 [PREPROCESS] HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-04-15 18:32:40,691 [PREPROCESS] HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-15 18:32:40,784 [PREPROCESS] DataLoader 준비 완료 | train=5085 val=1089 test=1091
+2026-04-15 18:32:40,784 [PREPROCESS] 총 실험 수: 1
+2026-04-15 18:32:40,784 [PREPROCESS] ━━━━ 실험 시작: CNN+transformer+image_only ━━━━
+2026-04-15 18:32:40,843 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-15 18:32:40,848 [PREPROCESS] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|                                                                                                | 0/103 [00:00<?, ?it/s]Loading weights: 100%|███████████████████████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 10005.17it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-04-15 18:33:16,617 [PREPROCESS] [CNN+transformer+image_only] epoch 001/100 | train=2.1354 val=2.0472 acc=0.2645 rlx2=0.2645 rlx3=0.2645 f1=0.1370 f1@2=0.2645 f1@3=0.2645
+2026-04-15 18:33:44,334 [PREPROCESS] [CNN+transformer+image_only] epoch 002/100 | train=2.0679 val=2.0280 acc=0.2727 rlx2=0.2727 rlx3=0.2727 f1=0.1835 f1@2=0.2727 f1@3=0.2727
+2026-04-15 18:34:21,510 [PREPROCESS] [CNN+transformer+image_only] epoch 003/100 | train=2.0490 val=2.0418 acc=0.2718 rlx2=0.2718 rlx3=0.2718 f1=0.1724 f1@2=0.2718 f1@3=0.2718
+2026-04-15 18:34:58,669 [PREPROCESS] [CNN+transformer+image_only] epoch 004/100 | train=2.0245 val=2.0534 acc=0.2691 rlx2=0.2691 rlx3=0.2691 f1=0.1858 f1@2=0.2691 f1@3=0.2691
+/usr/local/lib/python3.11/dist-packages/torch/optim/lr_scheduler.py:232: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+2026-04-15 18:35:41,857 [PREPROCESS] [CNN+transformer+image_only] epoch 005/100 | train=2.0273 val=2.0363 acc=0.2837 rlx2=0.2837 rlx3=0.2837 f1=0.1839 f1@2=0.2837 f1@3=0.2837
+2026-04-15 18:36:26,422 [PREPROCESS] [CNN+transformer+image_only] epoch 006/100 | train=2.0135 val=2.0415 acc=0.2874 rlx2=0.2874 rlx3=0.2874 f1=0.2009 f1@2=0.2874 f1@3=0.2874
+2026-04-15 18:37:11,743 [PREPROCESS] [CNN+transformer+image_only] epoch 007/100 | train=1.9918 val=1.9767 acc=0.2984 rlx2=0.2984 rlx3=0.2984 f1=0.1874 f1@2=0.2984 f1@3=0.2984
+2026-04-15 18:37:51,803 [PREPROCESS] [CNN+transformer+image_only] epoch 008/100 | train=1.9681 val=2.0246 acc=0.2902 rlx2=0.2902 rlx3=0.2902 f1=0.2058 f1@2=0.2902 f1@3=0.2902
+2026-04-15 18:38:36,655 [PREPROCESS] [CNN+transformer+image_only] epoch 009/100 | train=1.9571 val=2.0013 acc=0.2590 rlx2=0.2590 rlx3=0.2590 f1=0.1785 f1@2=0.2590 f1@3=0.2590
+2026-04-15 18:39:17,611 [PREPROCESS] [CNN+transformer+image_only] epoch 010/100 | train=1.9274 val=2.0756 acc=0.2562 rlx2=0.2562 rlx3=0.2562 f1=0.1611 f1@2=0.2562 f1@3=0.2562
+2026-04-15 18:40:02,941 [PREPROCESS] [CNN+transformer+image_only] epoch 011/100 | train=1.9132 val=1.9664 acc=0.3122 rlx2=0.3122 rlx3=0.3122 f1=0.2408 f1@2=0.3122 f1@3=0.3122
+2026-04-15 18:40:47,688 [PREPROCESS] [CNN+transformer+image_only] epoch 012/100 | train=1.9175 val=1.9738 acc=0.2911 rlx2=0.2911 rlx3=0.2911 f1=0.2414 f1@2=0.2911 f1@3=0.2911
+2026-04-15 18:41:18,802 [PREPROCESS] [CNN+transformer+image_only] epoch 013/100 | train=1.8722 val=2.0600 acc=0.2635 rlx2=0.2635 rlx3=0.2635 f1=0.2370 f1@2=0.2635 f1@3=0.2635
+2026-04-15 18:41:50,974 [PREPROCESS] [CNN+transformer+image_only] epoch 014/100 | train=1.8738 val=2.2606 acc=0.2626 rlx2=0.2626 rlx3=0.2626 f1=0.1652 f1@2=0.2626 f1@3=0.2626
+2026-04-15 18:42:22,617 [PREPROCESS] [CNN+transformer+image_only] epoch 015/100 | train=1.8341 val=2.0340 acc=0.3232 rlx2=0.3232 rlx3=0.3232 f1=0.2792 f1@2=0.3232 f1@3=0.3232
+2026-04-15 18:42:56,610 [PREPROCESS] [CNN+transformer+image_only] epoch 016/100 | train=1.8236 val=1.9997 acc=0.2948 rlx2=0.2948 rlx3=0.2948 f1=0.2453 f1@2=0.2948 f1@3=0.2948
+2026-04-15 18:43:33,034 [PREPROCESS] [CNN+transformer+image_only] epoch 017/100 | train=1.8016 val=1.9208 acc=0.3177 rlx2=0.3177 rlx3=0.3177 f1=0.2792 f1@2=0.3177 f1@3=0.3177
+2026-04-15 18:44:14,406 [PREPROCESS] [CNN+transformer+image_only] epoch 018/100 | train=1.7759 val=1.9890 acc=0.3214 rlx2=0.3214 rlx3=0.3214 f1=0.2768 f1@2=0.3214 f1@3=0.3214
+2026-04-15 18:44:59,877 [PREPROCESS] [CNN+transformer+image_only] epoch 019/100 | train=1.7532 val=2.0469 acc=0.2929 rlx2=0.2929 rlx3=0.2929 f1=0.2341 f1@2=0.2929 f1@3=0.2929
+2026-04-15 18:45:40,448 [PREPROCESS] [CNN+transformer+image_only] epoch 020/100 | train=1.7568 val=2.0375 acc=0.3242 rlx2=0.3242 rlx3=0.3242 f1=0.2698 f1@2=0.3242 f1@3=0.3242
+2026-04-15 18:46:23,676 [PREPROCESS] [CNN+transformer+image_only] epoch 021/100 | train=1.7292 val=2.0008 acc=0.3407 rlx2=0.3407 rlx3=0.3407 f1=0.2863 f1@2=0.3407 f1@3=0.3407
+2026-04-15 18:47:00,956 [PREPROCESS] [CNN+transformer+image_only] epoch 022/100 | train=1.7357 val=1.9462 acc=0.3003 rlx2=0.3003 rlx3=0.3003 f1=0.2677 f1@2=0.3003 f1@3=0.3003
+2026-04-15 18:47:37,648 [PREPROCESS] [CNN+transformer+image_only] epoch 023/100 | train=1.6724 val=1.9801 acc=0.3407 rlx2=0.3407 rlx3=0.3407 f1=0.3050 f1@2=0.3407 f1@3=0.3407
+2026-04-15 18:48:07,367 [PREPROCESS] [CNN+transformer+image_only] epoch 024/100 | train=1.6577 val=2.0160 acc=0.3049 rlx2=0.3049 rlx3=0.3049 f1=0.2852 f1@2=0.3049 f1@3=0.3049
+2026-04-15 18:48:39,232 [PREPROCESS] [CNN+transformer+image_only] epoch 025/100 | train=1.6322 val=2.0006 acc=0.3287 rlx2=0.3287 rlx3=0.3287 f1=0.2642 f1@2=0.3287 f1@3=0.3287
+2026-04-15 18:49:14,293 [PREPROCESS] [CNN+transformer+image_only] epoch 026/100 | train=1.6014 val=2.0511 acc=0.3434 rlx2=0.3434 rlx3=0.3434 f1=0.2826 f1@2=0.3434 f1@3=0.3434
+2026-04-15 18:49:48,322 [PREPROCESS] [CNN+transformer+image_only] epoch 027/100 | train=1.5705 val=2.0415 acc=0.3205 rlx2=0.3205 rlx3=0.3205 f1=0.2704 f1@2=0.3205 f1@3=0.3205
+2026-04-15 18:50:16,784 [PREPROCESS] [CNN+transformer+image_only] epoch 028/100 | train=1.5489 val=2.0399 acc=0.3646 rlx2=0.3646 rlx3=0.3646 f1=0.3052 f1@2=0.3646 f1@3=0.3646
+2026-04-15 18:50:46,601 [PREPROCESS] [CNN+transformer+image_only] epoch 029/100 | train=1.5354 val=2.0093 acc=0.3278 rlx2=0.3278 rlx3=0.3278 f1=0.2859 f1@2=0.3278 f1@3=0.3278
+2026-04-15 18:51:21,341 [PREPROCESS] [CNN+transformer+image_only] epoch 030/100 | train=1.4966 val=2.0974 acc=0.3269 rlx2=0.3269 rlx3=0.3269 f1=0.2800 f1@2=0.3269 f1@3=0.3269
+2026-04-15 18:51:52,804 [PREPROCESS] [CNN+transformer+image_only] epoch 031/100 | train=1.4870 val=2.0045 acc=0.3278 rlx2=0.3278 rlx3=0.3278 f1=0.2862 f1@2=0.3278 f1@3=0.3278
+2026-04-15 18:52:29,181 [PREPROCESS] [CNN+transformer+image_only] epoch 032/100 | train=1.4329 val=2.0335 acc=0.3388 rlx2=0.3388 rlx3=0.3388 f1=0.2994 f1@2=0.3388 f1@3=0.3388
+2026-04-15 18:53:03,281 [PREPROCESS] [CNN+transformer+image_only] epoch 033/100 | train=1.4086 val=2.0142 acc=0.3434 rlx2=0.3434 rlx3=0.3434 f1=0.2974 f1@2=0.3434 f1@3=0.3434
+2026-04-15 18:53:33,535 [PREPROCESS] [CNN+transformer+image_only] epoch 034/100 | train=1.3729 val=2.0737 acc=0.3333 rlx2=0.3333 rlx3=0.3333 f1=0.2954 f1@2=0.3333 f1@3=0.3333
+2026-04-15 18:54:02,867 [PREPROCESS] [CNN+transformer+image_only] epoch 035/100 | train=1.3568 val=2.1416 acc=0.3407 rlx2=0.3407 rlx3=0.3407 f1=0.3066 f1@2=0.3407 f1@3=0.3407
+2026-04-15 18:54:33,565 [PREPROCESS] [CNN+transformer+image_only] epoch 036/100 | train=1.3056 val=2.2277 acc=0.3333 rlx2=0.3333 rlx3=0.3333 f1=0.3139 f1@2=0.3333 f1@3=0.3333
+2026-04-15 18:55:05,867 [PREPROCESS] [CNN+transformer+image_only] epoch 037/100 | train=1.2815 val=2.2109 acc=0.3444 rlx2=0.3444 rlx3=0.3444 f1=0.3122 f1@2=0.3444 f1@3=0.3444
+2026-04-15 18:55:39,388 [PREPROCESS] [CNN+transformer+image_only] epoch 038/100 | train=1.2514 val=2.1933 acc=0.3370 rlx2=0.3370 rlx3=0.3370 f1=0.3066 f1@2=0.3370 f1@3=0.3370
+2026-04-15 18:56:13,983 [PREPROCESS] [CNN+transformer+image_only] epoch 039/100 | train=1.2029 val=2.1766 acc=0.3434 rlx2=0.3434 rlx3=0.3434 f1=0.2993 f1@2=0.3434 f1@3=0.3434
+2026-04-15 18:56:44,452 [PREPROCESS] [CNN+transformer+image_only] epoch 040/100 | train=1.1545 val=2.1974 acc=0.3104 rlx2=0.3104 rlx3=0.3104 f1=0.3026 f1@2=0.3104 f1@3=0.3104
+2026-04-15 18:57:15,168 [PREPROCESS] [CNN+transformer+image_only] epoch 041/100 | train=1.1446 val=2.2788 acc=0.3352 rlx2=0.3352 rlx3=0.3352 f1=0.3071 f1@2=0.3352 f1@3=0.3352
+2026-04-15 18:57:45,565 [PREPROCESS] [CNN+transformer+image_only] epoch 042/100 | train=1.1293 val=2.5297 acc=0.3049 rlx2=0.3049 rlx3=0.3049 f1=0.2713 f1@2=0.3049 f1@3=0.3049
+2026-04-15 18:58:15,911 [PREPROCESS] [CNN+transformer+image_only] epoch 043/100 | train=1.0992 val=2.3894 acc=0.3324 rlx2=0.3324 rlx3=0.3324 f1=0.2971 f1@2=0.3324 f1@3=0.3324
+2026-04-15 18:58:49,963 [PREPROCESS] [CNN+transformer+image_only] epoch 044/100 | train=1.0522 val=2.4711 acc=0.3343 rlx2=0.3343 rlx3=0.3343 f1=0.2969 f1@2=0.3343 f1@3=0.3343
+2026-04-15 18:59:23,414 [PREPROCESS] [CNN+transformer+image_only] epoch 045/100 | train=1.0040 val=2.6018 acc=0.3453 rlx2=0.3453 rlx3=0.3453 f1=0.2976 f1@2=0.3453 f1@3=0.3453
+2026-04-15 18:59:55,395 [PREPROCESS] [CNN+transformer+image_only] epoch 046/100 | train=0.9631 val=2.5829 acc=0.3287 rlx2=0.3287 rlx3=0.3287 f1=0.2911 f1@2=0.3287 f1@3=0.3287
+2026-04-15 19:00:26,718 [PREPROCESS] [CNN+transformer+image_only] epoch 047/100 | train=0.9448 val=2.8793 acc=0.3104 rlx2=0.3104 rlx3=0.3104 f1=0.2694 f1@2=0.3104 f1@3=0.3104
+2026-04-15 19:00:56,321 [PREPROCESS] [CNN+transformer+image_only] epoch 048/100 | train=0.9212 val=2.9359 acc=0.3306 rlx2=0.3306 rlx3=0.3306 f1=0.3076 f1@2=0.3306 f1@3=0.3306
+2026-04-15 19:01:26,279 [PREPROCESS] [CNN+transformer+image_only] epoch 049/100 | train=0.9053 val=2.6873 acc=0.3205 rlx2=0.3205 rlx3=0.3205 f1=0.3049 f1@2=0.3205 f1@3=0.3205
+2026-04-15 19:01:57,890 [PREPROCESS] [CNN+transformer+image_only] epoch 050/100 | train=0.8530 val=2.4987 acc=0.3232 rlx2=0.3232 rlx3=0.3232 f1=0.2903 f1@2=0.3232 f1@3=0.3232
+2026-04-15 19:02:28,192 [PREPROCESS] [CNN+transformer+image_only] epoch 051/100 | train=0.8313 val=2.8768 acc=0.3361 rlx2=0.3361 rlx3=0.3361 f1=0.3050 f1@2=0.3361 f1@3=0.3361
+2026-04-15 19:02:58,314 [PREPROCESS] [CNN+transformer+image_only] epoch 052/100 | train=0.8063 val=2.8708 acc=0.3251 rlx2=0.3251 rlx3=0.3251 f1=0.3084 f1@2=0.3251 f1@3=0.3251
+2026-04-15 19:03:29,235 [PREPROCESS] [CNN+transformer+image_only] epoch 053/100 | train=0.7836 val=2.9353 acc=0.2984 rlx2=0.2984 rlx3=0.2984 f1=0.2839 f1@2=0.2984 f1@3=0.2984
+2026-04-15 19:03:58,261 [PREPROCESS] [CNN+transformer+image_only] epoch 054/100 | train=0.7303 val=2.8002 acc=0.3361 rlx2=0.3361 rlx3=0.3361 f1=0.3018 f1@2=0.3361 f1@3=0.3361
+2026-04-15 19:04:30,316 [PREPROCESS] [CNN+transformer+image_only] epoch 055/100 | train=0.7161 val=3.0438 acc=0.3269 rlx2=0.3269 rlx3=0.3269 f1=0.2971 f1@2=0.3269 f1@3=0.3269
+2026-04-15 19:05:03,123 [PREPROCESS] [CNN+transformer+image_only] epoch 056/100 | train=0.7003 val=3.0200 acc=0.3315 rlx2=0.3315 rlx3=0.3315 f1=0.3104 f1@2=0.3315 f1@3=0.3315
+2026-04-15 19:05:35,533 [PREPROCESS] [CNN+transformer+image_only] epoch 057/100 | train=0.6732 val=3.1126 acc=0.3242 rlx2=0.3242 rlx3=0.3242 f1=0.2959 f1@2=0.3242 f1@3=0.3242
+2026-04-15 19:06:03,327 [PREPROCESS] [CNN+transformer+image_only] epoch 058/100 | train=0.6561 val=3.0115 acc=0.3315 rlx2=0.3315 rlx3=0.3315 f1=0.3055 f1@2=0.3315 f1@3=0.3315
+2026-04-15 19:06:31,674 [PREPROCESS] [CNN+transformer+image_only] epoch 059/100 | train=0.6242 val=3.2559 acc=0.3140 rlx2=0.3140 rlx3=0.3140 f1=0.2755 f1@2=0.3140 f1@3=0.3140
+2026-04-15 19:07:02,588 [PREPROCESS] [CNN+transformer+image_only] epoch 060/100 | train=0.6145 val=3.3067 acc=0.3242 rlx2=0.3242 rlx3=0.3242 f1=0.2921 f1@2=0.3242 f1@3=0.3242
+2026-04-15 19:07:31,029 [PREPROCESS] [CNN+transformer+image_only] epoch 061/100 | train=0.5751 val=3.1149 acc=0.3333 rlx2=0.3333 rlx3=0.3333 f1=0.3137 f1@2=0.3333 f1@3=0.3333
+2026-04-15 19:08:04,433 [PREPROCESS] [CNN+transformer+image_only] epoch 062/100 | train=0.5559 val=3.2116 acc=0.3297 rlx2=0.3297 rlx3=0.3297 f1=0.3073 f1@2=0.3297 f1@3=0.3297
+2026-04-15 19:08:32,742 [PREPROCESS] [CNN+transformer+image_only] epoch 063/100 | train=0.5443 val=3.2837 acc=0.3416 rlx2=0.3416 rlx3=0.3416 f1=0.3184 f1@2=0.3416 f1@3=0.3416
+2026-04-15 19:09:01,501 [PREPROCESS] [CNN+transformer+image_only] epoch 064/100 | train=0.5314 val=3.2835 acc=0.3333 rlx2=0.3333 rlx3=0.3333 f1=0.3189 f1@2=0.3333 f1@3=0.3333
+2026-04-15 19:09:37,689 [PREPROCESS] [CNN+transformer+image_only] epoch 065/100 | train=0.5127 val=3.4281 acc=0.3159 rlx2=0.3159 rlx3=0.3159 f1=0.2977 f1@2=0.3159 f1@3=0.3159
+2026-04-15 19:10:08,795 [PREPROCESS] [CNN+transformer+image_only] epoch 066/100 | train=0.5014 val=3.2188 acc=0.3333 rlx2=0.3333 rlx3=0.3333 f1=0.3115 f1@2=0.3333 f1@3=0.3333
+2026-04-15 19:10:43,707 [PREPROCESS] [CNN+transformer+image_only] epoch 067/100 | train=0.4878 val=3.4345 acc=0.3398 rlx2=0.3398 rlx3=0.3398 f1=0.3197 f1@2=0.3398 f1@3=0.3398
+2026-04-15 19:11:13,687 [PREPROCESS] [CNN+transformer+image_only] epoch 068/100 | train=0.4487 val=3.5131 acc=0.3370 rlx2=0.3370 rlx3=0.3370 f1=0.3143 f1@2=0.3370 f1@3=0.3370
+2026-04-15 19:11:47,989 [PREPROCESS] [CNN+transformer+image_only] epoch 069/100 | train=0.4411 val=3.4434 acc=0.3379 rlx2=0.3379 rlx3=0.3379 f1=0.3165 f1@2=0.3379 f1@3=0.3379
+2026-04-15 19:12:18,011 [PREPROCESS] [CNN+transformer+image_only] epoch 070/100 | train=0.4467 val=3.6514 acc=0.3388 rlx2=0.3388 rlx3=0.3388 f1=0.3108 f1@2=0.3388 f1@3=0.3388
+2026-04-15 19:12:46,948 [PREPROCESS] [CNN+transformer+image_only] epoch 071/100 | train=0.4091 val=3.6172 acc=0.3370 rlx2=0.3370 rlx3=0.3370 f1=0.3050 f1@2=0.3370 f1@3=0.3370
+2026-04-15 19:13:22,890 [PREPROCESS] [CNN+transformer+image_only] epoch 072/100 | train=0.4127 val=3.7318 acc=0.3444 rlx2=0.3444 rlx3=0.3444 f1=0.3130 f1@2=0.3444 f1@3=0.3444
+2026-04-15 19:13:57,375 [PREPROCESS] [CNN+transformer+image_only] epoch 073/100 | train=0.3902 val=3.8957 acc=0.3370 rlx2=0.3370 rlx3=0.3370 f1=0.3097 f1@2=0.3370 f1@3=0.3370
+2026-04-15 19:14:28,897 [PREPROCESS] [CNN+transformer+image_only] epoch 074/100 | train=0.3819 val=3.7422 acc=0.3343 rlx2=0.3343 rlx3=0.3343 f1=0.3058 f1@2=0.3343 f1@3=0.3343
+2026-04-15 19:14:58,681 [PREPROCESS] [CNN+transformer+image_only] epoch 075/100 | train=0.3684 val=3.8181 acc=0.3407 rlx2=0.3407 rlx3=0.3407 f1=0.3107 f1@2=0.3407 f1@3=0.3407
+2026-04-15 19:15:26,350 [PREPROCESS] [CNN+transformer+image_only] epoch 076/100 | train=0.3705 val=3.8447 acc=0.3499 rlx2=0.3499 rlx3=0.3499 f1=0.3223 f1@2=0.3499 f1@3=0.3499
+2026-04-15 19:15:54,679 [PREPROCESS] [CNN+transformer+image_only] epoch 077/100 | train=0.3580 val=3.8740 acc=0.3416 rlx2=0.3416 rlx3=0.3416 f1=0.3195 f1@2=0.3416 f1@3=0.3416
+2026-04-15 19:16:24,437 [PREPROCESS] [CNN+transformer+image_only] epoch 078/100 | train=0.3222 val=3.7805 acc=0.3416 rlx2=0.3416 rlx3=0.3416 f1=0.3103 f1@2=0.3416 f1@3=0.3416
+2026-04-15 19:17:05,577 [PREPROCESS] [CNN+transformer+image_only] epoch 079/100 | train=0.3339 val=3.7720 acc=0.3352 rlx2=0.3352 rlx3=0.3352 f1=0.3077 f1@2=0.3352 f1@3=0.3352
+2026-04-15 19:17:50,090 [PREPROCESS] [CNN+transformer+image_only] epoch 080/100 | train=0.3139 val=3.6843 acc=0.3379 rlx2=0.3379 rlx3=0.3379 f1=0.3149 f1@2=0.3379 f1@3=0.3379
+2026-04-15 19:18:28,170 [PREPROCESS] [CNN+transformer+image_only] epoch 081/100 | train=0.3108 val=3.9408 acc=0.3434 rlx2=0.3434 rlx3=0.3434 f1=0.3176 f1@2=0.3434 f1@3=0.3434
+2026-04-15 19:19:08,801 [PREPROCESS] [CNN+transformer+image_only] epoch 082/100 | train=0.3044 val=3.9938 acc=0.3361 rlx2=0.3361 rlx3=0.3361 f1=0.3071 f1@2=0.3361 f1@3=0.3361
+2026-04-15 19:19:47,315 [PREPROCESS] [CNN+transformer+image_only] epoch 083/100 | train=0.3023 val=3.8720 acc=0.3388 rlx2=0.3388 rlx3=0.3388 f1=0.3149 f1@2=0.3388 f1@3=0.3388
+2026-04-15 19:20:21,470 [PREPROCESS] [CNN+transformer+image_only] epoch 084/100 | train=0.2983 val=3.8540 acc=0.3370 rlx2=0.3370 rlx3=0.3370 f1=0.3129 f1@2=0.3370 f1@3=0.3370
+2026-04-15 19:20:55,670 [PREPROCESS] [CNN+transformer+image_only] epoch 085/100 | train=0.2884 val=3.9018 acc=0.3444 rlx2=0.3444 rlx3=0.3444 f1=0.3229 f1@2=0.3444 f1@3=0.3444
+2026-04-15 19:21:23,493 [PREPROCESS] [CNN+transformer+image_only] epoch 086/100 | train=0.2645 val=4.0261 acc=0.3352 rlx2=0.3352 rlx3=0.3352 f1=0.3084 f1@2=0.3352 f1@3=0.3352
+2026-04-15 19:21:52,604 [PREPROCESS] [CNN+transformer+image_only] epoch 087/100 | train=0.2801 val=3.9375 acc=0.3388 rlx2=0.3388 rlx3=0.3388 f1=0.3144 f1@2=0.3388 f1@3=0.3388
+2026-04-15 19:22:25,063 [PREPROCESS] [CNN+transformer+image_only] epoch 088/100 | train=0.2716 val=3.9434 acc=0.3453 rlx2=0.3453 rlx3=0.3453 f1=0.3244 f1@2=0.3453 f1@3=0.3453
+2026-04-15 19:23:00,163 [PREPROCESS] [CNN+transformer+image_only] epoch 089/100 | train=0.2784 val=3.9535 acc=0.3352 rlx2=0.3352 rlx3=0.3352 f1=0.3111 f1@2=0.3352 f1@3=0.3352
+2026-04-15 19:23:31,711 [PREPROCESS] [CNN+transformer+image_only] epoch 090/100 | train=0.2758 val=3.8748 acc=0.3398 rlx2=0.3398 rlx3=0.3398 f1=0.3153 f1@2=0.3398 f1@3=0.3398
+2026-04-15 19:24:03,357 [PREPROCESS] [CNN+transformer+image_only] epoch 091/100 | train=0.2716 val=4.0459 acc=0.3444 rlx2=0.3444 rlx3=0.3444 f1=0.3171 f1@2=0.3444 f1@3=0.3444
+2026-04-15 19:24:36,169 [PREPROCESS] [CNN+transformer+image_only] epoch 092/100 | train=0.2661 val=3.9916 acc=0.3489 rlx2=0.3489 rlx3=0.3489 f1=0.3236 f1@2=0.3489 f1@3=0.3489
+2026-04-15 19:25:05,822 [PREPROCESS] [CNN+transformer+image_only] epoch 093/100 | train=0.2678 val=3.9873 acc=0.3462 rlx2=0.3462 rlx3=0.3462 f1=0.3255 f1@2=0.3462 f1@3=0.3462
+2026-04-15 19:25:36,718 [PREPROCESS] [CNN+transformer+image_only] epoch 094/100 | train=0.2550 val=4.0326 acc=0.3444 rlx2=0.3444 rlx3=0.3444 f1=0.3219 f1@2=0.3444 f1@3=0.3444
+2026-04-15 19:26:08,648 [PREPROCESS] [CNN+transformer+image_only] epoch 095/100 | train=0.2676 val=4.0048 acc=0.3453 rlx2=0.3453 rlx3=0.3453 f1=0.3244 f1@2=0.3453 f1@3=0.3453
+2026-04-15 19:26:40,811 [PREPROCESS] [CNN+transformer+image_only] epoch 096/100 | train=0.2630 val=4.0402 acc=0.3480 rlx2=0.3480 rlx3=0.3480 f1=0.3249 f1@2=0.3480 f1@3=0.3480
+2026-04-15 19:27:11,388 [PREPROCESS] [CNN+transformer+image_only] epoch 097/100 | train=0.2493 val=4.0965 acc=0.3453 rlx2=0.3453 rlx3=0.3453 f1=0.3221 f1@2=0.3453 f1@3=0.3453
+2026-04-15 19:27:41,006 [PREPROCESS] [CNN+transformer+image_only] epoch 098/100 | train=0.2583 val=4.0277 acc=0.3388 rlx2=0.3388 rlx3=0.3388 f1=0.3175 f1@2=0.3388 f1@3=0.3388
+2026-04-15 19:28:09,964 [PREPROCESS] [CNN+transformer+image_only] epoch 099/100 | train=0.2525 val=4.1036 acc=0.3453 rlx2=0.3453 rlx3=0.3453 f1=0.3225 f1@2=0.3453 f1@3=0.3453
+2026-04-15 19:28:39,623 [PREPROCESS] [CNN+transformer+image_only] epoch 100/100 | train=0.2494 val=4.1110 acc=0.3434 rlx2=0.3434 rlx3=0.3434 f1=0.3193 f1@2=0.3434 f1@3=0.3434
+2026-04-15 19:28:47,031 [PREPROCESS] [CNN+transformer+image_only] TEST → acc=0.3181 rlx2=0.3181 rlx3=0.3181 f1_macro=0.2600 f1@2=0.3181 f1@3=0.3181 f1_weighted=0.2926 (56.1분)
+2026-04-15 19:28:47,317 [PREPROCESS]   Saved training curve: plots/CNN_transformer_image_only_curve.png
+2026-04-15 19:28:47,364 [PREPROCESS]   Saved predictions: results_single10_full/runs/CNN_transformer_image_only/all_predictions.csv
+2026-04-15 19:28:47,364 [PREPROCESS]   Saved misclassified samples: results_single10_full/runs/CNN_transformer_image_only/misclassified_samples.csv
+2026-04-15 19:28:47,379 [PREPROCESS] 요약 저장 완료 → results_single10_full/runs/CNN_transformer_image_only/summary.json
+2026-04-15 19:28:47,379 [PREPROCESS] 리포트 저장 완료 → results_single10_full/runs/CNN_transformer_image_only/summary_report.txt
+2026-04-15 19:28:47,527 [PREPROCESS]   Saved F1 comparison plot: plots/f1_comparison.png
+2026-04-15 19:28:47,665 [PREPROCESS]   Saved per-class F1 plot: plots/per_class_f1_best.png
+2026-04-15 19:28:48,130 [PREPROCESS]   Saved confusion matrix: plots/confusion_matrix_best.png
+2026-04-15 19:28:48,130 [PREPROCESS] 
+============================================================
+2026-04-15 19:28:48,131 [PREPROCESS]   ✅ 최적 구성  : CNN+transformer+image_only
+2026-04-15 19:28:48,131 [PREPROCESS]   📊 기준 지표  : f1_weighted = 0.2926
+2026-04-15 19:28:48,131 [PREPROCESS]   🎯 Accuracy   : 0.3181
+2026-04-15 19:28:48,131 [PREPROCESS]   🧪 Relaxed@2  : 0.3181
+2026-04-15 19:28:48,131 [PREPROCESS]   🧪 Relaxed@3  : 0.3181
+2026-04-15 19:28:48,131 [PREPROCESS]   🧪 F1@2       : 0.3181
+2026-04-15 19:28:48,131 [PREPROCESS]   🧪 F1@3       : 0.3181
+2026-04-15 19:28:48,131 [PREPROCESS]   📌 F1 Macro   : 0.2600
+2026-04-15 19:28:48,131 [PREPROCESS] ============================================================

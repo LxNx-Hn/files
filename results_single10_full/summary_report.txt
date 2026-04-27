@@ -1,0 +1,24 @@
+==========================================================================
+  Multimodal Image+Text Experiment Summary (launcher aggregate)
+==========================================================================
+
+  Best Config  : RES+transformer+late+freeze_off
+  F1 Weighted : 0.7274
+  Accuracy    : 0.7287
+  Relaxed@2   : 0.7287
+  Relaxed@3   : 0.7287
+  F1@2        : 0.7287
+  F1@3        : 0.7287
+  F1 Macro    : 0.7001
+
+  Rank Config                                              Acc  F1_mac  F1_wgt   Rlx@2   Rlx@3    F1@2    F1@3  Time(m)
+  ---------------------------------------------------------------------------------------------------------------------
+  1    RES+transformer+late+freeze_off                  0.7287  0.7001  0.7274  0.7287  0.7287  0.7287  0.7287     63.4
+  2    RES+transformer+early+freeze_off                 0.7250  0.6764  0.7151  0.7250  0.7250  0.7250  0.7250     61.9
+  3    CNN+transformer+late+freeze_off                  0.7159  0.6632  0.7123  0.7159  0.7159  0.7159  0.7159     62.4
+  4    CNN+transformer+early+freeze_off                 0.6994  0.6444  0.6923  0.6994  0.6994  0.6994  0.6994     55.3
+  5    transformer+text_only+freeze_off                 0.6893  0.6306  0.6868  0.6893  0.6893  0.6893  0.6893     57.5
+  6    CNN+transformer+joint+freeze_off                 0.6829  0.6253  0.6797  0.6829  0.6829  0.6829  0.6829     54.7
+  7    RES+transformer+joint+freeze_off                 0.6755  0.6136  0.6712  0.6755  0.6755  0.6755  0.6755     61.6
+  8    RES+transformer+image_only                       0.4885  0.4595  0.4797  0.4885  0.4885  0.4885  0.4885     60.4
+  9    CNN+transformer+image_only                       0.3181  0.2600  0.2926  0.3181  0.3181  0.3181  0.3181     56.1
